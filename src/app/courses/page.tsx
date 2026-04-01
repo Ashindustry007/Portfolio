@@ -3,7 +3,7 @@
 
 import { academicData } from "@/lib/config";
 import { Footer } from "@/components/footer";
-import { ArrowLeft, GraduationCap, Award, BookOpen, Layers } from "lucide-react";
+import { ArrowLeft, GraduationCap, Award, BookOpen, Layers, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -135,8 +135,47 @@ export default function CoursesPage() {
         </div>
       </section>
 
-      {/* Featured Highlights */}
+      {/* Specializations & Additional Courses */}
       <section className="py-24 px-8 bg-[#161412] border-t border-white/5">
+        <div className="max-w-7xl mx-auto space-y-16">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-8">
+            <div className="space-y-4">
+              <span className="text-primary font-mono text-xs uppercase tracking-widest block">Certifications</span>
+              <h2 className="text-4xl font-headline font-bold uppercase">Specializations & <br /> Additional Courses</h2>
+            </div>
+            <p className="text-xs text-muted-foreground font-mono uppercase tracking-widest max-w-xs text-right">
+              Professional development and external research specializations.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {academicData.additionalCourses.map((course, idx) => (
+              <div key={idx} className="p-6 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-primary/40 transition-all duration-500 group">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                    <ExternalLink className="text-primary" size={16} />
+                  </div>
+                  <span className="text-[10px] font-mono text-white/30">{course.date}</span>
+                </div>
+                <h4 className="text-lg font-headline font-bold text-white group-hover:text-primary transition-colors mb-2 leading-tight">
+                  {course.title}
+                </h4>
+                <p className="text-[11px] text-primary/60 font-mono uppercase tracking-wider mb-3">
+                  {course.provider}
+                </p>
+                {course.description && (
+                  <p className="text-[10px] text-muted-foreground leading-relaxed border-t border-white/5 pt-3 mt-auto">
+                    {course.description}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Highlights */}
+      <section className="py-24 px-8 bg-background border-t border-white/5">
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12">
           <div className="flex gap-6">
             <div className="h-12 w-12 shrink-0 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">

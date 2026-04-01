@@ -83,18 +83,18 @@ export const academicData = {
         id: "Fall 2025",
         gpa: "3.700",
         courses: [
-          "CSE 202: Algorithm Design and Analysis (A-)",
-          "CSE 250A: Probabilistic Reason & Learning (A-)",
-          "CSE 258: Recommender Sys & Web Mining (A-)"
+          "CSE 202: Algorithm Design and Analysis",
+          "CSE 250A: Probabilistic Reason & Learning",
+          "CSE 258: Recommender Sys & Web Mining"
         ]
       },
       {
         id: "Winter 2026",
         gpa: "3.333",
         courses: [
-          "CSE 220: Operating Systems Principles (B-)",
-          "CSE 280A: Algorithms/Computational Biol (A)",
-          "CSE 291A: Topics in AI: AI Agents (B+)"
+          "CSE 220: Operating Systems Principles",
+          "CSE 280A: Algorithms/Computational Biol",
+          "CSE 291A: Topics in AI: AI Agents"
         ]
       },
       {
@@ -154,5 +154,44 @@ export const academicData = {
         courses: ["Major Project Course", "Comprehensive Viva Voce"]
       }
     ]
-  }
+  },
+  additionalCourses: [
+    {
+      title: "Deep Learning Specialization",
+      provider: "Coursera - Deeplearning.ai",
+      date: "Jan 2021",
+      description: "Neural Networks, Hyperparameter Tuning, CNNs, Sequence Models"
+    },
+    {
+      title: "Mathematics for Machine Learning",
+      provider: "Coursera - Imperial College London",
+      date: "Dec 2022",
+      description: "Linear Algebra, Multivariate Calculus, PCA"
+    },
+    {
+      title: "Fundamentals of Reinforcement Learning",
+      provider: "Coursera - University of Alberta",
+      date: "Jul 2021"
+    },
+    {
+      title: "Algorithmic Toolbox",
+      provider: "Coursera - UCSD & HSE",
+      date: "Sept 2020"
+    },
+    {
+      title: "Mathematical Thinking in Computer Science",
+      provider: "Coursera - UCSD & HSE",
+      date: "Sept 2020"
+    },
+    {
+      title: "Python for Data Science & ML Bootcamp",
+      provider: "Udemy",
+      date: "Jun 2020"
+    },
+    {
+      title: "AWS Academy Cloud Foundations",
+      provider: "AWS Training & Certification",
+      date: "Sept 2021"
+    }
+  ]
 };
