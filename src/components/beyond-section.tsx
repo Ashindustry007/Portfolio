@@ -15,16 +15,16 @@ export function BeyondSection() {
       desc: "Capturing the world through cinematic photography."
     },
     {
-      title: "Beyond the Classroom",
-      link: "/extracurricular.html",
-      imageKey: "extracurricular-thumbnail",
-      desc: "Adventures, sports, and life outside tech."
-    },
-    {
       title: "Academic Foundation",
       link: "/courses.html",
       imageKey: "academic-thumbnail",
       desc: "Coursework and fundamental research papers."
+    },
+    {
+      title: "Beyond the Classroom",
+      link: "/extracurricular.html",
+      imageKey: "extracurricular-thumbnail",
+      desc: "Adventures, sports, and life outside tech."
     }
   ];
 
