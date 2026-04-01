@@ -1,0 +1,53 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "avatar",
+      "description": "Portrait of Ashish Kumar Panda",
+      "imageUrl": "https://picsum.photos/seed/ashish-portrait/800/800",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "project-retinal",
+      "description": "Retinal Vessel Segmentation Visualization",
+      "imageUrl": "https://picsum.photos/seed/eye-scan/1200/800",
+      "imageHint": "medical scan"
+    },
+    {
+      "id": "project-vocal",
+      "description": "Vocal Bio-Marker Research Visualization",
+      "imageUrl": "https://picsum.photos/seed/audio-tech/1200/800",
+      "imageHint": "audio waveform"
+    },
+    {
+      "id": "project-population",
+      "description": "Deep Learning for Population Growth Prediction",
+      "imageUrl": "https://picsum.photos/seed/genetic-dna/1200/800",
+      "imageHint": "dna science"
+    },
+    {
+      "id": "photography-thumbnail",
+      "description": "Photography portfolio preview",
+      "imageUrl": "https://picsum.photos/seed/cinema-photo/1200/800",
+      "imageHint": "camera lens"
+    },
+    {
+      "id": "extracurricular-thumbnail",
+      "description": "Beyond the classroom activities",
+      "imageUrl": "https://picsum.photos/seed/adventure-extra/1200/800",
+      "imageHint": "mountain hiking"
+    },
+    {
+      "id": "academic-thumbnail",
+      "description": "Academic foundation and courses",
+      "imageUrl": "https://picsum.photos/seed/campus-library/1200/800",
+      "imageHint": "modern library"
+    },
+    {
+      "id": "courses-bg",
+      "description": "Cinematic developer workstation background",
+      "imageUrl": "https://picsum.photos/seed/developer-setup/1920/1080",
+      "imageHint": "developer workstation"
+    }
+  ]
+}
