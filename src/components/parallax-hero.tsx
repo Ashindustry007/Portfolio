@@ -80,20 +80,20 @@ export function ParallaxHero() {
       <div className="sticky top-0 h-screen w-full overflow-hidden rounded-b-[4rem] bg-background shadow-2xl">
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full object-cover opacity-60"
+          className="absolute inset-0 h-full w-full object-cover opacity-50"
         />
         <div className="absolute inset-0 hero-gradient" />
 
-        <div className="relative z-10 grid h-full w-full grid-cols-1 md:grid-cols-2 px-8 py-16">
+        <div className="relative z-10 grid h-full w-full grid-cols-1 md:grid-cols-2 px-12 py-16">
           {/* Identity Block */}
-          <div className="flex flex-col justify-center space-y-8">
+          <div className="flex flex-col justify-center">
             <div className="space-y-1">
-              <span className="text-primary font-headline text-sm uppercase tracking-widest block">
-                Welcome to the portfolio of
+              <span className="text-primary font-mono text-[10px] uppercase tracking-[0.3em] block opacity-60 mb-2">
+                Curated Works
               </span>
-              <h1 className="text-7xl md:text-9xl font-headline font-bold leading-tight uppercase">
+              <h1 className="text-6xl md:text-8xl font-headline font-bold leading-none uppercase tracking-tighter">
                 {siteConfig.name} <br />
-                <span className="text-outline text-transparent" style={{ WebkitTextStroke: '2px white' }}>
+                <span className="text-outline text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.8)' }}>
                   {siteConfig.surname}
                 </span>
               </h1>
@@ -101,23 +101,23 @@ export function ParallaxHero() {
           </div>
 
           {/* Value Proposition Block */}
-          <div className="flex flex-col justify-center items-end text-right md:pr-12 space-y-12">
-            <div className="max-w-md space-y-4">
-              <h2 className="text-3xl font-headline font-bold text-primary">
+          <div className="flex flex-col justify-center items-end text-right md:pr-4 space-y-10">
+            <div className="max-w-sm space-y-4">
+              <h2 className="text-xl font-headline font-bold text-primary tracking-tight">
                 {siteConfig.subheadline}
               </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed opacity-80">
                 {siteConfig.intro}
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-end gap-8 max-w-md">
+            <div className="flex flex-wrap justify-end gap-x-10 gap-y-6 max-w-sm">
               {siteConfig.skills.map((skill) => (
                 <div key={skill.id} className="flex flex-col items-end">
-                  <span className="text-[10px] text-primary/60 font-mono tracking-tighter">
+                  <span className="text-[8px] text-primary/40 font-mono tracking-widest mb-1">
                     {skill.id}
                   </span>
-                  <span className="text-xs font-headline uppercase tracking-wide">
+                  <span className="text-[10px] font-headline uppercase tracking-[0.15em] text-white/70">
                     {skill.label}
                   </span>
                 </div>
@@ -126,33 +126,33 @@ export function ParallaxHero() {
           </div>
 
           {/* Socials & Navigation */}
-          <div className="absolute bottom-12 left-0 w-full flex flex-col items-center space-y-8">
-            <div className="flex space-x-8 text-white/50">
-              <Link href={siteConfig.socials.github} className="hover:text-primary transition-colors">
-                <Github size={20} />
+          <div className="absolute bottom-12 left-0 w-full flex flex-col items-center space-y-10">
+            <div className="flex space-x-10 text-white/20">
+              <Link href={siteConfig.socials.github} className="hover:text-primary transition-all duration-300">
+                <Github size={16} />
               </Link>
-              <Link href={siteConfig.socials.linkedin} className="hover:text-primary transition-colors">
-                <Linkedin size={20} />
+              <Link href={siteConfig.socials.linkedin} className="hover:text-primary transition-all duration-300">
+                <Linkedin size={16} />
               </Link>
-              <Link href={siteConfig.socials.instagram} className="hover:text-primary transition-colors">
-                <Instagram size={20} />
+              <Link href={siteConfig.socials.instagram} className="hover:text-primary transition-all duration-300">
+                <Instagram size={16} />
               </Link>
             </div>
 
-            <nav className="flex space-x-12 uppercase text-[10px] tracking-[0.2em] font-medium text-white/70">
-              <Link href="/photography.html" className="hover:text-primary transition-colors hover:underline underline-offset-8">
-                [Photography]
+            <nav className="flex space-x-10 uppercase text-[9px] tracking-[0.25em] font-medium text-white/40">
+              <Link href="/photography.html" className="hover:text-primary transition-colors">
+                Photography
               </Link>
-              <Link href="/extracurricular.html" className="hover:text-primary transition-colors hover:underline underline-offset-8">
-                [Extracurriculars]
+              <Link href="/extracurricular.html" className="hover:text-primary transition-colors">
+                Extracurriculars
               </Link>
-              <Link href="/courses.html" className="hover:text-primary transition-colors hover:underline underline-offset-8">
-                [Coursework]
+              <Link href="/courses.html" className="hover:text-primary transition-colors">
+                Coursework
               </Link>
             </nav>
             
-            <div className="animate-bounce mt-4">
-              <MousePointer2 className="text-primary/40 rotate-180" size={24} />
+            <div className="animate-pulse mt-2">
+              <MousePointer2 className="text-primary/20 rotate-180" size={20} />
             </div>
           </div>
         </div>
