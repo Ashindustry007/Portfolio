@@ -19,7 +19,7 @@ export function AboutSection() {
                 alt={avatar.description || "About Ashish"}
                 width={800}
                 height={800}
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-700"
                 data-ai-hint="man portrait"
               />
             )}
