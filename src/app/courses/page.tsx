@@ -14,19 +14,8 @@ export default function CoursesPage() {
 
   return (
     <main className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-      {/* Background Image Layer */}
-      <div className="fixed inset-0 z-0">
-        {bgImage?.imageUrl && (
-          <Image
-            src={bgImage.imageUrl}
-            alt="Background"
-            fill
-            className="object-cover opacity-80 brightness-[0.7]"
-            priority
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background" />
-      </div>
+      {/* Background Layer */}
+      <div className="fixed inset-0 z-0 bg-background" />
 
       {/* Navigation Header */}
       <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-md">
@@ -43,10 +32,23 @@ export default function CoursesPage() {
 
       {/* Content Layer */}
       <div className="relative z-10">
-        {/* Hero Section */}
-        <section className="py-24 px-8 border-b border-white/5">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-end gap-12">
-            <div className="space-y-6 max-w-2xl">
+        {/* Hero Section with Custom Background */}
+        <section className="relative py-32 px-8 border-b border-white/5 overflow-hidden">
+          {bgImage?.imageUrl && (
+            <div className="absolute inset-0 z-0">
+              <Image
+                src={bgImage.imageUrl}
+                alt="Education Background"
+                fill
+                className="object-cover opacity-40 grayscale-[0.2] brightness-125"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
+            </div>
+          )}
+          
+          <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:grid md:grid-cols-2 justify-between items-center gap-12">
+            <div className="space-y-6">
               <span className="text-primary font-mono text-xs uppercase tracking-widest block">Education Path</span>
               <h1 className="text-5xl md:text-7xl font-headline font-bold leading-none uppercase">
                 Academic <br />
@@ -54,9 +56,14 @@ export default function CoursesPage() {
                   Excellence
                 </span>
               </h1>
-              <p className="text-sm text-muted-foreground font-mono uppercase tracking-wider max-w-lg">
+              <p className="text-sm text-muted-foreground font-mono uppercase tracking-wider max-w-lg leading-relaxed">
                 A comprehensive journey from electrical engineering fundamentals to advanced specialization in artificial intelligence and computer science.
               </p>
+            </div>
+            
+            <div className="hidden md:flex flex-col items-end text-right space-y-4">
+               <div className="h-px w-24 bg-primary/40" />
+               <p className="text-[10px] font-mono uppercase tracking-[0.4em] text-primary/60">UC San Diego / OUTR</p>
             </div>
           </div>
         </section>
@@ -67,16 +74,16 @@ export default function CoursesPage() {
             <Tabs defaultValue="graduate" className="space-y-16">
               <div className="flex justify-center">
                 <TabsList className="bg-white/5 border border-white/10 p-1 rounded-full h-14 backdrop-blur-lg">
-                  <TabsTrigger value="graduate" className="rounded-full px-8 data-[state=active]:bg-primary data-[state=active]:text-black font-headline uppercase text-xs tracking-widest">
+                  <TabsTrigger value="graduate" className="rounded-full px-8 data-[state=active]:bg-primary data-[state=active]:text-black font-headline uppercase text-xs tracking-widest transition-all">
                     Graduate (UCSD)
                   </TabsTrigger>
-                  <TabsTrigger value="undergrad" className="rounded-full px-8 data-[state=active]:bg-primary data-[state=active]:text-black font-headline uppercase text-xs tracking-widest">
+                  <TabsTrigger value="undergrad" className="rounded-full px-8 data-[state=active]:bg-primary data-[state=active]:text-black font-headline uppercase text-xs tracking-widest transition-all">
                     Undergraduate (OUTR)
                   </TabsTrigger>
                 </TabsList>
               </div>
 
-              <TabsContent value="graduate" className="space-y-12">
+              <TabsContent value="graduate" className="space-y-12 animate-in fade-in duration-700">
                 <div className="flex flex-col md:grid md:grid-cols-2 justify-between items-start md:items-center gap-8 border-b border-white/5 pb-12">
                   <div className="space-y-2">
                     <h2 className="text-3xl font-headline font-bold">{academicData.graduate.university}</h2>
@@ -116,7 +123,7 @@ export default function CoursesPage() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="undergrad" className="space-y-12">
+              <TabsContent value="undergrad" className="space-y-12 animate-in fade-in duration-700">
                 <div className="flex flex-col md:grid md:grid-cols-2 justify-between items-start md:items-center gap-8 border-b border-white/5 pb-12">
                   <div className="space-y-2">
                     <h2 className="text-3xl font-headline font-bold">{academicData.undergraduate.university}</h2>

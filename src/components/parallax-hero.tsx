@@ -79,7 +79,8 @@ export function ParallaxHero() {
           ref={canvasRef}
           className="absolute inset-0 h-full w-full object-cover opacity-100"
         />
-        <div className="absolute inset-0 hero-gradient opacity-60" />
+        {/* Adjusted opacity of gradient to make the character sequence more visible */}
+        <div className="absolute inset-0 hero-gradient opacity-30" />
 
         <div className="relative z-10 grid h-full w-full grid-cols-1 md:grid-cols-2 px-12 py-16">
           {/* Identity Block */}
