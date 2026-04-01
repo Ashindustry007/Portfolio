@@ -195,3 +195,33 @@ export const academicData = {
     }
   ]
 };
+
+export const extracurriculars = [
+  {
+    category: "Tech & Competitive Programming",
+    items: [
+      { title: "TCS Codevita Season 10", description: "Achieved World Rank 96th globally." },
+      { title: "AWS Generative AI Hackathon", description: "Ranked among the Top 5, conducted by AWS at Open Financial Technologies." },
+      { title: "Kaggle Expert", description: "Ranked as Expert in the Notebook category." },
+      { title: "Zairza - Technical Club of OUTR", description: "Core Member (2019-23), actively contributing to technical projects and events." }
+    ]
+  },
+  {
+    category: "Arts & Media",
+    items: [
+      { title: "Photofactory - Media Club of OUTR", description: "Head (2022-23) and Core Member (2019-22), led cinematic photography and media production." },
+      { title: "19th State Level Child Art Competition", description: "Awarded in Group-C for best painting by Orissa Lalit Kala Akademi (2011)." },
+      { title: "Certified Junior Artist", description: "Certified by Orissa Lalit Kala Akademi (2010)." },
+      { title: "Fine Art Training", description: "Trained in Fine Art at the School of Art and Craft affiliated to Lalit Kala Akademi (2010)." },
+      { title: "Art Exhibitions", description: "Participated in various group Art Exhibitions (2009-2010)." }
+    ]
+  },
+  {
+    category: "Adventure & Community Impact",
+    items: [
+      { title: "Certified Surfer", description: "Level 1 certification from Aquatic Indica Surf School (2023)." },
+      { title: "Go India Charity Foundation", description: "Worked for 1.5 years as a rehabilitation assistant, assisting the blind with daily tasks and mobility support." },
+      { title: "Inara NGO Volunteer", description: "Contributed to the clean beach movement and animal welfare initiatives." }
+    ]
+  }
+];

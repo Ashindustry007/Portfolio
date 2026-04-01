@@ -146,7 +146,7 @@ export function ParallaxHero() {
               <Link href="#" className="hover:text-primary transition-colors">
                 Photography
               </Link>
-              <Link href="#" className="hover:text-primary transition-colors">
+              <Link href="/extracurriculars" className="hover:text-primary transition-colors">
                 Extracurriculars
               </Link>
               <Link href="/courses" className="hover:text-primary transition-colors">

@@ -16,9 +16,9 @@ export function BeyondSection() {
     },
     {
       title: "Beyond the Classroom",
-      link: "#",
+      link: "/extracurriculars",
       imageKey: "extracurricular-thumbnail",
-      desc: "Adventures, sports, and life outside tech."
+      desc: "Awards, technical clubs, and community impact."
     },
     {
       title: "Through the Lens",
