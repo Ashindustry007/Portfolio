@@ -1,3 +1,4 @@
+
 "use client";
 
 import { academicData } from "@/lib/config";
@@ -15,13 +16,15 @@ export default function CoursesPage() {
     <main className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
       {/* Background Image Layer */}
       <div className="fixed inset-0 z-0">
-        <Image
-          src={bgImage?.imageUrl || ""}
-          alt="Background"
-          fill
-          className="object-cover opacity-30 grayscale brightness-[0.4]"
-          priority
-        />
+        {bgImage?.imageUrl && (
+          <Image
+            src={bgImage.imageUrl}
+            alt="Background"
+            fill
+            className="object-cover opacity-30 grayscale brightness-[0.4]"
+            priority
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
       </div>
 

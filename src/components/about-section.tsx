@@ -13,14 +13,16 @@ export function AboutSection() {
         <div className="relative group">
           <div className="absolute -inset-4 bg-primary/20 rounded-3xl blur-2xl group-hover:bg-primary/30 transition-all duration-700" />
           <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-            <Image
-              src={avatar?.imageUrl || ""}
-              alt={avatar?.description || "About Ashish"}
-              width={800}
-              height={800}
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-              data-ai-hint="man portrait"
-            />
+            {avatar?.imageUrl && (
+              <Image
+                src={avatar.imageUrl}
+                alt={avatar.description || "About Ashish"}
+                width={800}
+                height={800}
+                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                data-ai-hint="man portrait"
+              />
+            )}
           </div>
         </div>
         
