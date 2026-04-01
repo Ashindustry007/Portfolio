@@ -21,11 +21,11 @@ export default function CoursesPage() {
             src={bgImage.imageUrl}
             alt="Background"
             fill
-            className="object-cover opacity-30 grayscale brightness-[0.4]"
+            className="object-cover opacity-40 brightness-[0.3]"
             priority
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
       </div>
 
       {/* Navigation Header */}
@@ -66,7 +66,7 @@ export default function CoursesPage() {
           <div className="max-w-7xl mx-auto">
             <Tabs defaultValue="graduate" className="space-y-16">
               <div className="flex justify-center">
-                <TabsList className="bg-white/5 border border-white/10 p-1 rounded-full h-14">
+                <TabsList className="bg-white/5 border border-white/10 p-1 rounded-full h-14 backdrop-blur-lg">
                   <TabsTrigger value="graduate" className="rounded-full px-8 data-[state=active]:bg-primary data-[state=active]:text-black font-headline uppercase text-xs tracking-widest">
                     Graduate (UCSD)
                   </TabsTrigger>
@@ -77,12 +77,12 @@ export default function CoursesPage() {
               </div>
 
               <TabsContent value="graduate" className="space-y-12">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-b border-white/5 pb-12">
+                <div className="flex flex-col md:grid md:grid-cols-2 justify-between items-start md:items-center gap-8 border-b border-white/5 pb-12">
                   <div className="space-y-2">
                     <h2 className="text-3xl font-headline font-bold">{academicData.graduate.university}</h2>
                     <p className="text-xl text-primary/80 font-headline">{academicData.graduate.degree} in {academicData.graduate.branch}</p>
                   </div>
-                  <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex items-center gap-4">
+                  <div className="md:justify-self-end bg-white/5 border border-white/10 p-6 rounded-2xl flex items-center gap-4 backdrop-blur-md">
                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                       <Award className="text-primary" size={20} />
                     </div>
@@ -95,11 +95,11 @@ export default function CoursesPage() {
 
                 <div className="grid md:grid-cols-3 gap-8">
                   {academicData.graduate.terms.map((term, idx) => (
-                    <div key={idx} className="group p-8 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-sm hover:border-primary/30 transition-all duration-500">
+                    <div key={idx} className="group p-8 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md hover:border-primary/30 transition-all duration-500">
                       <div className="flex justify-between items-start mb-6">
                         <h3 className="text-xl font-headline font-bold text-white group-hover:text-primary transition-colors">{term.id}</h3>
                         <div className="text-right">
-                          <span className="text-[10px] text-primary/40 font-mono uppercase tracking-widest block">Term Status</span>
+                          <span className="text-[10px] text-primary/40 font-mono uppercase tracking-widest block">Status</span>
                           <p className="text-sm font-mono font-bold text-white/60">{term.id.includes('Spring') ? 'In Progress' : 'Completed'}</p>
                         </div>
                       </div>
@@ -117,12 +117,12 @@ export default function CoursesPage() {
               </TabsContent>
 
               <TabsContent value="undergrad" className="space-y-12">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-b border-white/5 pb-12">
+                <div className="flex flex-col md:grid md:grid-cols-2 justify-between items-start md:items-center gap-8 border-b border-white/5 pb-12">
                   <div className="space-y-2">
                     <h2 className="text-3xl font-headline font-bold">{academicData.undergraduate.university}</h2>
                     <p className="text-xl text-primary/80 font-headline">{academicData.undergraduate.degree} in {academicData.undergraduate.branch}</p>
                   </div>
-                  <div className="bg-white/5 border border-white/10 p-6 rounded-2xl flex items-center gap-4">
+                  <div className="md:justify-self-end bg-white/5 border border-white/10 p-6 rounded-2xl flex items-center gap-4 backdrop-blur-md">
                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                       <Award className="text-primary" size={20} />
                     </div>
@@ -135,7 +135,7 @@ export default function CoursesPage() {
 
                 <div className="grid md:grid-cols-4 gap-6">
                   {academicData.undergraduate.semesters.map((sem, idx) => (
-                    <div key={idx} className="group p-6 rounded-xl bg-white/[0.02] border border-white/5 backdrop-blur-sm hover:border-primary/30 transition-all duration-500">
+                    <div key={idx} className="group p-6 rounded-xl bg-white/[0.02] border border-white/5 backdrop-blur-md hover:border-primary/30 transition-all duration-500">
                       <div className="flex justify-between items-start mb-4">
                         <h3 className="text-lg font-headline font-bold text-white group-hover:text-primary transition-colors">{sem.id}</h3>
                         <p className="text-[10px] font-mono font-bold text-white/40">{sem.sgpa}</p>
@@ -156,7 +156,7 @@ export default function CoursesPage() {
         </section>
 
         {/* Specializations & Additional Courses */}
-        <section className="py-24 px-8 border-t border-white/5">
+        <section className="py-24 px-8 border-t border-white/5 bg-black/20 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="flex flex-col md:flex-row justify-between items-end gap-8">
               <div className="space-y-4">
@@ -170,7 +170,7 @@ export default function CoursesPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {academicData.additionalCourses.map((course, idx) => (
-                <div key={idx} className="p-6 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm hover:border-primary/40 transition-all duration-500 group">
+                <div key={idx} className="p-6 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md hover:border-primary/40 transition-all duration-500 group flex flex-col">
                   <div className="flex justify-between items-start mb-4">
                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
                       <ExternalLink className="text-primary" size={16} />
