@@ -25,7 +25,7 @@ export function AboutSection() {
                 src={avatar.imageUrl}
                 alt={avatar.description || "About Ashish"}
                 fill
-                className="object-cover object-center transition-all duration-700 scale-105 group-hover:scale-100"
+                className="object-cover object-center grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
                 data-ai-hint="man portrait"
                 priority
               />
