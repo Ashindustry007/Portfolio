@@ -48,6 +48,12 @@
       "description": "Cinematic developer workstation background",
       "imageUrl": "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_f82dab339ee581d98b64e81ba16dadbdeg-ezgif.com-png-to-webp-converter.webp",
       "imageHint": "developer workstation"
+    },
+    {
+      "id": "extracurriculars-bg",
+      "description": "Cinematic artistic background for extracurriculars",
+      "imageUrl": "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_e2dcaa7c302f8248dbc4a95e628ab799eg-ezgif.com-png-to-webp-converter.webp",
+      "imageHint": "artistic setup"
     }
   ]
 }

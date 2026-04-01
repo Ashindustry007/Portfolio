@@ -3,13 +3,15 @@
 
 import { extracurriculars } from "@/lib/config";
 import { Footer } from "@/components/footer";
-import { ArrowLeft, Award, Globe, Heart, Camera, Code, Waves } from "lucide-react";
+import { ArrowLeft, Award, Heart, Camera, Code } from "lucide-react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export default function ExtracurricularsPage() {
   const { scrollY } = useScroll();
   const bgOpacity = useTransform(scrollY, [0, 600], [1, 0.1]);
+  const bgImage = PlaceHolderImages.find(img => img.id === "extracurriculars-bg");
 
   const getIcon = (category: string) => {
     switch (category) {
@@ -22,16 +24,16 @@ export default function ExtracurricularsPage() {
 
   return (
     <main className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-      {/* Background Layer */}
+      {/* Background Layers */}
       <motion.div 
         className="fixed inset-0 z-0 bg-cover bg-center"
         style={{ 
-          backgroundImage: `url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2000&auto=format&fit=crop')`,
+          backgroundImage: `url('${bgImage?.imageUrl}')`,
           opacity: bgOpacity 
         }}
       />
       {/* Left-to-right gradient for text readability */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/80 to-transparent pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/60 to-transparent pointer-events-none" />
       {/* Bottom fade gradient */}
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none" />
 
