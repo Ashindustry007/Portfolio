@@ -98,10 +98,22 @@ export function ParallaxHero() {
                 </span>
               </h1>
             </div>
+          </div>
 
-            <div className="flex flex-wrap gap-8">
+          {/* Value Proposition Block */}
+          <div className="flex flex-col justify-center items-end text-right md:pr-12 space-y-12">
+            <div className="max-w-md space-y-4">
+              <h2 className="text-3xl font-headline font-bold text-primary">
+                {siteConfig.subheadline}
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                {siteConfig.intro}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap justify-end gap-8 max-w-md">
               {siteConfig.skills.map((skill) => (
-                <div key={skill.id} className="flex flex-col">
+                <div key={skill.id} className="flex flex-col items-end">
                   <span className="text-[10px] text-primary/60 font-mono tracking-tighter">
                     {skill.id}
                   </span>
@@ -110,18 +122,6 @@ export function ParallaxHero() {
                   </span>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* Value Proposition Block */}
-          <div className="flex flex-col justify-center items-end text-right md:pr-12">
-            <div className="max-w-md space-y-4">
-              <h2 className="text-3xl font-headline font-bold text-primary">
-                {siteConfig.subheadline}
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                {siteConfig.intro}
-              </p>
             </div>
           </div>
 
