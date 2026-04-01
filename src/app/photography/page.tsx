@@ -10,6 +10,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function PhotographyPage() {
   const { scrollY } = useScroll();
+  // Maintain a minimum opacity of 0.3 for background visibility as requested
   const bgOpacity = useTransform(scrollY, [0, 600], [1, 0.3]);
 
   return (
@@ -22,7 +23,9 @@ export default function PhotographyPage() {
           opacity: bgOpacity 
         }}
       />
+      {/* Left-to-right gradient for text contrast */}
       <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/60 to-transparent pointer-events-none" />
+      {/* Bottom fade gradient */}
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none" />
 
       {/* Content Layer */}
@@ -35,7 +38,7 @@ export default function PhotographyPage() {
               Back to Portfolio
             </Link>
             <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-primary">
-              Visual Narrative
+              @ash.galleryyy
             </div>
           </div>
         </header>
@@ -52,7 +55,7 @@ export default function PhotographyPage() {
                 </span>
               </h1>
               <p className="text-sm text-muted-foreground font-mono uppercase tracking-wider max-w-lg leading-relaxed">
-                Capturing moments, light, and stories. A curated collection of visuals from my travels and street exploration.
+                A curated visual narrative of light, structure, and human stories. Exploring the intersection of urban rhythm and natural serenity.
               </p>
               
               <Link 
@@ -61,7 +64,7 @@ export default function PhotographyPage() {
                 className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest hover:bg-primary hover:text-black transition-all duration-500 group"
               >
                 <Instagram size={16} className="group-hover:scale-110 transition-transform" />
-                Follow on Instagram
+                Follow @ash.galleryyy
               </Link>
             </div>
           </div>
