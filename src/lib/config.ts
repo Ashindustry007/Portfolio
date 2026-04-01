@@ -73,95 +73,86 @@ export const publications = [
 ];
 
 export const academicData = {
-  university: "Odisha University of Technology and Research (OUTR)",
-  degree: "Bachelor of Technology (B.Tech)",
-  branch: "Electrical Engineering",
-  cgpa: "9.40",
-  semesters: [
-    {
-      id: "SE01",
-      sgpa: "8.06",
-      courses: [
-        "Mathematics-I",
-        "Physics",
-        "Basic Electrical Engineering",
-        "Work Shop/Basic Manufacturing Process",
-        "Physics Lab"
-      ]
-    },
-    {
-      id: "SE02",
-      sgpa: "9.85",
-      courses: [
-        "Chemistry",
-        "Mathematics-II",
-        "Programming for Problem Solving",
-        "English",
-        "Engineering Graphics and Design"
-      ]
-    },
-    {
-      id: "SE03",
-      sgpa: "9.63",
-      courses: [
-        "Mathematics-III",
-        "Engineering Economics",
-        "Electrical Circuit Analysis",
-        "Electrical Machines-I",
-        "Analog Electronic Circuit"
-      ]
-    },
-    {
-      id: "SE04",
-      sgpa: "9.71",
-      courses: [
-        "Signal and Systems",
-        "Organizational Behaviour",
-        "Electrical Machines-II",
-        "Measurement Techniques",
-        "Digital System Design"
-      ]
-    },
-    {
-      id: "SE05",
-      sgpa: "9.80",
-      courses: [
-        "Artificial Intelligence",
-        "Power Transmission and Distribution",
-        "Power Electronics",
-        "Control System-I",
-        "Microprocessor and Microcontroller"
-      ]
-    },
-    {
-      id: "SE06",
-      sgpa: "9.68",
-      courses: [
-        "Object Oriented Programming with C++",
-        "Power System Operation and Control",
-        "Digital Signal Processing",
-        "Renewable Energy Systems",
-        "Design and Simulation Lab"
-      ]
-    },
-    {
-      id: "SE07",
-      sgpa: "9.10",
-      courses: [
-        "Machine Learning",
-        "Power System Protection & Switchgear",
-        "Control Systems-II",
-        "Power Quality and Custom Power Devices",
-        "Minor Project Course"
-      ]
-    },
-    {
-      id: "SE08",
-      sgpa: "9.06",
-      courses: [
-        "Project Course",
-        "Comprehensive Viva Voce"
-      ]
-    }
-  ]
+  graduate: {
+    university: "University of California, San Diego (UCSD)",
+    degree: "Master of Science (M.S.)",
+    branch: "Computer Science",
+    cgpa: "3.516",
+    terms: [
+      {
+        id: "Fall 2025",
+        gpa: "3.700",
+        courses: [
+          "CSE 202: Algorithm Design and Analysis (A-)",
+          "CSE 250A: Probabilistic Reason & Learning (A-)",
+          "CSE 258: Recommender Sys & Web Mining (A-)"
+        ]
+      },
+      {
+        id: "Winter 2026",
+        gpa: "3.333",
+        courses: [
+          "CSE 220: Operating Systems Principles (B-)",
+          "CSE 280A: Algorithms/Computational Biol (A)",
+          "CSE 291A: Topics in AI: AI Agents (B+)"
+        ]
+      },
+      {
+        id: "Spring 2026",
+        gpa: "TBD",
+        courses: [
+          "CSE 252D: Advanced Computer Vision",
+          "CSE 253: Machine Learning for Music"
+        ]
+      }
+    ]
+  },
+  undergraduate: {
+    university: "Odisha University of Technology and Research (OUTR)",
+    degree: "Bachelor of Technology (B.Tech)",
+    branch: "Electrical Engineering",
+    cgpa: "9.40",
+    semesters: [
+      {
+        id: "SE01",
+        sgpa: "8.06",
+        courses: ["Mathematics-I", "Physics", "Basic Electrical Engineering", "Basic Manufacturing Process"]
+      },
+      {
+        id: "SE02",
+        sgpa: "9.85",
+        courses: ["Chemistry", "Mathematics-II", "Programming for Problem Solving", "English"]
+      },
+      {
+        id: "SE03",
+        sgpa: "9.63",
+        courses: ["Mathematics-III", "Engineering Economics", "Electrical Circuit Analysis", "Electrical Machines-I"]
+      },
+      {
+        id: "SE04",
+        sgpa: "9.71",
+        courses: ["Signal and Systems", "Organizational Behaviour", "Electrical Machines-II", "Digital System Design"]
+      },
+      {
+        id: "SE05",
+        sgpa: "9.80",
+        courses: ["Artificial Intelligence", "Power Transmission and Distribution", "Power Electronics", "Control System-I"]
+      },
+      {
+        id: "SE06",
+        sgpa: "9.68",
+        courses: ["Object Oriented Programming with C++", "Power System Operation", "Digital Signal Processing", "Renewable Energy"]
+      },
+      {
+        id: "SE07",
+        sgpa: "9.10",
+        courses: ["Machine Learning", "Power System Protection", "Control Systems-II", "Minor Project Course"]
+      },
+      {
+        id: "SE08",
+        sgpa: "9.06",
+        courses: ["Major Project Course", "Comprehensive Viva Voce"]
+      }
+    ]
+  }
 };
