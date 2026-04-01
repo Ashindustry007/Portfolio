@@ -4,15 +4,13 @@ import { academicData } from "@/lib/config";
 import { Footer } from "@/components/footer";
 import { ArrowLeft, Award, ExternalLink } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function CoursesPage() {
   const { scrollY } = useScroll();
-  const bgOpacity = useTransform(scrollY, [0, 600], [1, 0.1]);
-  const bgImage = PlaceHolderImages.find(img => img.id === "courses-bg");
+  // Increased minimum opacity from 0.1 to 0.3 for more visibility
+  const bgOpacity = useTransform(scrollY, [0, 600], [1, 0.3]);
 
   return (
     <main className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
@@ -24,10 +22,10 @@ export default function CoursesPage() {
           opacity: bgOpacity 
         }}
       />
-      {/* Left-to-right gradient for text readability */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/60 to-transparent pointer-events-none" />
-      {/* Bottom fade gradient */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none" />
+      {/* Left-to-right gradient softened for visibility */}
+      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/40 to-transparent pointer-events-none" />
+      {/* Bottom fade gradient softened */}
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/60 pointer-events-none" />
 
       {/* Wrapped Content Layer */}
       <div className="relative z-10">

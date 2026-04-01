@@ -1,4 +1,3 @@
-
 "use client";
 
 import { extracurriculars } from "@/lib/config";
@@ -9,7 +8,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function ExtracurricularsPage() {
   const { scrollY } = useScroll();
-  const bgOpacity = useTransform(scrollY, [0, 600], [1, 0.1]);
+  // Increased minimum opacity from 0.1 to 0.3 for more visibility
+  const bgOpacity = useTransform(scrollY, [0, 600], [1, 0.3]);
 
   const getIcon = (category: string) => {
     switch (category) {
@@ -30,10 +30,10 @@ export default function ExtracurricularsPage() {
           opacity: bgOpacity 
         }}
       />
-      {/* Left-to-right gradient for text readability */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/60 to-transparent pointer-events-none" />
-      {/* Bottom fade gradient */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none" />
+      {/* Left-to-right gradient softened for visibility */}
+      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/40 to-transparent pointer-events-none" />
+      {/* Bottom fade gradient softened */}
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/60 pointer-events-none" />
 
       {/* Wrapped Content Layer */}
       <div className="relative z-10">
