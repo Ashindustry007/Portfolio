@@ -1,4 +1,3 @@
-
 "use client";
 
 import { academicData } from "@/lib/config";
@@ -26,7 +25,7 @@ export default function CoursesPage() {
         }}
       />
       {/* Left-to-right gradient for text readability */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/40 to-transparent pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/60 to-transparent pointer-events-none" />
       {/* Bottom fade gradient */}
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none" />
 
@@ -47,21 +46,8 @@ export default function CoursesPage() {
 
         {/* Hero Section */}
         <section className="relative py-32 px-8 border-b border-white/5 overflow-hidden">
-          {bgImage?.imageUrl && (
-            <div className="absolute inset-0 z-0">
-              <Image
-                src={bgImage.imageUrl}
-                alt="Education Background"
-                fill
-                className="object-cover opacity-40 grayscale-[0.2] brightness-125"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
-            </div>
-          )}
-          
-          <div className="relative z-10 max-w-7xl mx-auto flex flex-col md:grid md:grid-cols-2 justify-between items-center gap-12">
-            <div className="space-y-6">
+          <div className="relative z-10 max-w-7xl mx-auto">
+            <div className="space-y-6 max-w-2xl">
               <span className="text-primary font-mono text-xs uppercase tracking-widest block">Education Path</span>
               <h1 className="text-5xl md:text-7xl font-headline font-bold leading-none uppercase">
                 Academic <br />
@@ -72,11 +58,6 @@ export default function CoursesPage() {
               <p className="text-sm text-muted-foreground font-mono uppercase tracking-wider max-w-lg leading-relaxed">
                 A comprehensive journey from electrical engineering fundamentals to advanced specialization in artificial intelligence and computer science.
               </p>
-            </div>
-            
-            <div className="hidden md:flex flex-col items-end text-right space-y-4">
-               <div className="h-px w-24 bg-primary/40" />
-               <p className="text-[10px] font-mono uppercase tracking-[0.4em] text-primary/60">UC San Diego / OUTR</p>
             </div>
           </div>
         </section>
