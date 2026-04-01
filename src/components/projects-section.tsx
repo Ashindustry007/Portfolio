@@ -14,9 +14,6 @@ export function ProjectsSection() {
             <span className="text-primary font-mono text-xs uppercase tracking-widest block">Work</span>
             <h2 className="text-5xl font-headline font-bold uppercase">Featured Projects</h2>
           </div>
-          <p className="max-w-md text-muted-foreground text-right">
-            Selected works showcasing expertise in deep learning, audio analysis, and high-performance AI architectures.
-          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
