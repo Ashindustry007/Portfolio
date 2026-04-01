@@ -10,19 +10,19 @@ export function BeyondSection() {
   const categories = [
     {
       title: "Academic Foundation",
-      link: "/courses.html",
+      link: "/courses",
       imageKey: "academic-thumbnail",
       desc: "Coursework and fundamental research papers."
     },
     {
       title: "Beyond the Classroom",
-      link: "/extracurricular.html",
+      link: "#",
       imageKey: "extracurricular-thumbnail",
       desc: "Adventures, sports, and life outside tech."
     },
     {
       title: "Through the Lens",
-      link: "/photography.html",
+      link: "#",
       imageKey: "photography-thumbnail",
       desc: "Capturing the world through cinematic photography."
     }

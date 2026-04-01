@@ -105,21 +105,21 @@ export function ParallaxHero() {
           {/* Value Proposition Block */}
           <div className="flex flex-col justify-center items-end text-right space-y-8">
             <div className="max-w-xs space-y-3">
-              <h2 className="text-sm font-headline font-bold text-primary uppercase tracking-widest">
+              <h2 className="text-[10px] font-headline font-bold text-primary uppercase tracking-widest">
                 {siteConfig.subheadline}
               </h2>
-              <p className="text-muted-foreground text-[11px] leading-relaxed opacity-70">
+              <p className="text-muted-foreground text-[9px] leading-relaxed opacity-70">
                 {siteConfig.intro}
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-end gap-x-8 gap-y-4 max-w-xs">
+            <div className="flex flex-wrap justify-end gap-x-6 gap-y-3 max-w-xs">
               {siteConfig.skills.map((skill) => (
                 <div key={skill.id} className="flex flex-col items-end">
-                  <span className="text-[7px] text-primary/40 font-mono tracking-widest mb-0.5">
+                  <span className="text-[6px] text-primary/40 font-mono tracking-widest mb-0.5">
                     {skill.id}
                   </span>
-                  <span className="text-[9px] font-headline uppercase tracking-[0.1em] text-white/60">
+                  <span className="text-[8px] font-headline uppercase tracking-[0.1em] text-white/60">
                     {skill.label}
                   </span>
                 </div>
@@ -142,13 +142,13 @@ export function ParallaxHero() {
             </div>
 
             <nav className="flex space-x-8 uppercase text-[8px] tracking-[0.2em] font-medium text-white/30">
-              <Link href="/photography.html" className="hover:text-primary transition-colors">
+              <Link href="#" className="hover:text-primary transition-colors">
                 Photography
               </Link>
-              <Link href="/extracurricular.html" className="hover:text-primary transition-colors">
+              <Link href="#" className="hover:text-primary transition-colors">
                 Extracurriculars
               </Link>
-              <Link href="/courses.html" className="hover:text-primary transition-colors">
+              <Link href="/courses" className="hover:text-primary transition-colors">
                 Coursework
               </Link>
             </nav>

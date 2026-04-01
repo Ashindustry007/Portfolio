@@ -57,8 +57,8 @@ export const projects = [
     imageKey: "project-vocal"
   },
   {
-    title: "Population Growth Prediction",
-    description: "Deep learning pipeline to predict exponential growth rates from genetic data. Benchmarked ANNs against Deep Transformer and MultiTask Learning architectures to solve data sparsity in SNP matrices.",
+    title: "Population Growth Deep Learning",
+    description: "Built a deep learning pipeline to predict exponential growth rates from genetic data, benchmarking ANNs against Deep Transformer and MultiTask Learning architectures.",
     imageKey: "project-population"
   }
 ];
@@ -71,3 +71,97 @@ export const publications = [
     doi: "10.1109/ICECA52323.2021.9675980"
   }
 ];
+
+export const academicData = {
+  university: "Odisha University of Technology and Research (OUTR)",
+  degree: "Bachelor of Technology (B.Tech)",
+  branch: "Electrical Engineering",
+  cgpa: "9.40",
+  semesters: [
+    {
+      id: "SE01",
+      sgpa: "8.06",
+      courses: [
+        "Mathematics-I",
+        "Physics",
+        "Basic Electrical Engineering",
+        "Work Shop/Basic Manufacturing Process",
+        "Physics Lab"
+      ]
+    },
+    {
+      id: "SE02",
+      sgpa: "9.85",
+      courses: [
+        "Chemistry",
+        "Mathematics-II",
+        "Programming for Problem Solving",
+        "English",
+        "Engineering Graphics and Design"
+      ]
+    },
+    {
+      id: "SE03",
+      sgpa: "9.63",
+      courses: [
+        "Mathematics-III",
+        "Engineering Economics",
+        "Electrical Circuit Analysis",
+        "Electrical Machines-I",
+        "Analog Electronic Circuit"
+      ]
+    },
+    {
+      id: "SE04",
+      sgpa: "9.71",
+      courses: [
+        "Signal and Systems",
+        "Organizational Behaviour",
+        "Electrical Machines-II",
+        "Measurement Techniques",
+        "Digital System Design"
+      ]
+    },
+    {
+      id: "SE05",
+      sgpa: "9.80",
+      courses: [
+        "Artificial Intelligence",
+        "Power Transmission and Distribution",
+        "Power Electronics",
+        "Control System-I",
+        "Microprocessor and Microcontroller"
+      ]
+    },
+    {
+      id: "SE06",
+      sgpa: "9.68",
+      courses: [
+        "Object Oriented Programming with C++",
+        "Power System Operation and Control",
+        "Digital Signal Processing",
+        "Renewable Energy Systems",
+        "Design and Simulation Lab"
+      ]
+    },
+    {
+      id: "SE07",
+      sgpa: "9.10",
+      courses: [
+        "Machine Learning",
+        "Power System Protection & Switchgear",
+        "Control Systems-II",
+        "Power Quality and Custom Power Devices",
+        "Minor Project Course"
+      ]
+    },
+    {
+      id: "SE08",
+      sgpa: "9.06",
+      courses: [
+        "Project Course",
+        "Comprehensive Viva Voce"
+      ]
+    }
+  ]
+};
