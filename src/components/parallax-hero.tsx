@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/config";
 import { Github, Linkedin, Instagram, MousePointer2 } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export function ParallaxHero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -72,6 +73,19 @@ export function ParallaxHero() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const glitchVariants = {
+    initial: { x: 0, opacity: 1 },
+    glitch: {
+      x: [0, -2, 2, -1, 1, 0],
+      opacity: [1, 0.8, 1, 0.9, 1],
+      transition: {
+        duration: 0.2,
+        repeat: Infinity,
+        repeatDelay: 4,
+      }
+    }
+  };
+
   return (
     <div className="relative h-[250vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden rounded-b-[4rem] bg-background shadow-2xl">
@@ -79,7 +93,6 @@ export function ParallaxHero() {
           ref={canvasRef}
           className="absolute inset-0 h-full w-full object-cover opacity-100"
         />
-        {/* Adjusted opacity of gradient to make the character sequence more visible */}
         <div className="absolute inset-0 hero-gradient opacity-30" />
 
         <div className="relative z-10 grid h-full w-full grid-cols-1 md:grid-cols-2 px-12 py-16">
@@ -95,21 +108,40 @@ export function ParallaxHero() {
                   {siteConfig.surname}
                 </span>
               </h1>
-              <div className="pt-4">
-                <p className="text-xs md:text-sm font-mono text-primary/80 uppercase tracking-[0.2em] font-bold">
-                  {siteConfig.tagline}
-                </p>
+              
+              {/* Animated CAT Tagline */}
+              <div className="pt-6 flex flex-col items-start gap-2">
+                {[
+                  { letter: "C", rest: "ODER" },
+                  { letter: "A", rest: "RTIST" },
+                  { letter: "T", rest: "RAVELER" }
+                ].map((item, i) => (
+                  <motion.div 
+                    key={i}
+                    variants={glitchVariants}
+                    initial="initial"
+                    animate="glitch"
+                    className="flex items-center gap-4 group"
+                  >
+                    <span className="text-primary font-headline font-bold text-2xl md:text-3xl tracking-tighter">
+                      {item.letter}
+                    </span>
+                    <span className="text-[10px] md:text-xs font-mono text-white/30 uppercase tracking-[0.4em] group-hover:text-white/60 transition-colors duration-500">
+                      {item.rest}
+                    </span>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
 
           {/* Value Proposition Block */}
           <div className="flex flex-col justify-center items-end text-right space-y-8">
-            <div className="max-w-xs space-y-4">
-              <h2 className="text-xs font-headline font-bold text-primary uppercase tracking-widest">
+            <div className="max-w-xs md:max-w-sm space-y-4">
+              <h2 className="text-sm md:text-base font-headline font-bold text-primary uppercase tracking-widest">
                 {siteConfig.subheadline}
               </h2>
-              <p className="text-muted-foreground text-sm leading-relaxed opacity-80">
+              <p className="text-muted-foreground text-sm md:text-base leading-relaxed opacity-80">
                 {siteConfig.intro}
               </p>
             </div>
