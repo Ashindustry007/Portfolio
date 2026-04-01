@@ -29,7 +29,7 @@ export function ProjectsSection() {
                 viewport={{ once: true }}
                 className="group cursor-pointer"
               >
-                <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-6 border border-white/5 bg-white/[0.02]">
+                <div className="relative aspect-[3/2] rounded-xl overflow-hidden mb-6 border border-white/5 bg-white/[0.02]">
                   {imgData && (
                     <Image
                       src={imgData.imageUrl}
