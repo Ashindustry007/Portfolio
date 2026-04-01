@@ -25,7 +25,7 @@ export function AboutSection() {
                 src={avatar.imageUrl}
                 alt={avatar.description || "About Ashish"}
                 fill
-                className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                className="object-cover object-center transition-all duration-700 scale-105 group-hover:scale-100"
                 data-ai-hint="man portrait"
                 priority
               />
@@ -39,17 +39,17 @@ export function AboutSection() {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="space-y-6"
+          className="space-y-4"
         >
-          <div className="space-y-2">
+          <div className="space-y-1">
             <span className="text-primary font-mono text-xs uppercase tracking-widest block">About Me</span>
-            <h2 className="text-3xl font-headline font-bold leading-tight">
+            <h2 className="text-2xl md:text-3xl font-headline font-bold leading-tight">
               Shaping the Future of <br />
               <span className="text-primary">AI-Powered Creation</span>
             </h2>
           </div>
           
-          <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+          <div className="space-y-3 text-sm text-muted-foreground leading-relaxed max-w-xl">
             <p>
               I am an AI Engineer currently pursuing my MSCS at UC San Diego, driven by the challenge of bridging the gap between theoretical research and scalable, real-world systems. My focus lies at the intersection of Computer Vision and Agentic AI.
             </p>
@@ -58,16 +58,16 @@ export function AboutSection() {
             </p>
           </div>
 
-          <div className="pt-6 border-t border-white/5 grid grid-cols-2 gap-8">
-            <div className="space-y-1">
-              <h4 className="text-xs font-headline font-bold text-white uppercase tracking-wider">Education</h4>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">MSCS @ UC San Diego</p>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">B.Tech @ OUTR</p>
+          <div className="pt-4 border-t border-white/5 grid grid-cols-2 gap-6">
+            <div className="space-y-0.5">
+              <h4 className="text-[10px] font-headline font-bold text-white uppercase tracking-wider">Education</h4>
+              <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-mono">MSCS @ UC San Diego</p>
+              <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-mono">B.Tech @ OUTR</p>
             </div>
-            <div className="space-y-1">
-              <h4 className="text-xs font-headline font-bold text-white uppercase tracking-wider">Focus</h4>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Deep Learning / Computer vision</p>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Agentic AI Systems</p>
+            <div className="space-y-0.5">
+              <h4 className="text-[10px] font-headline font-bold text-white uppercase tracking-wider">Focus</h4>
+              <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-mono">Deep Learning / Computer vision</p>
+              <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-mono">Agentic AI Systems</p>
             </div>
           </div>
         </motion.div>
