@@ -77,9 +77,9 @@ export function ParallaxHero() {
       <div className="sticky top-0 h-screen w-full overflow-hidden rounded-b-[4rem] bg-background shadow-2xl">
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full object-cover opacity-40"
+          className="absolute inset-0 h-full w-full object-cover opacity-100"
         />
-        <div className="absolute inset-0 hero-gradient" />
+        <div className="absolute inset-0 hero-gradient opacity-60" />
 
         <div className="relative z-10 grid h-full w-full grid-cols-1 md:grid-cols-2 px-12 py-16">
           {/* Identity Block */}

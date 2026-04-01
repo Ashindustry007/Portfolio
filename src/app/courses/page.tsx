@@ -1,3 +1,4 @@
+
 "use client";
 
 import { academicData } from "@/lib/config";
@@ -20,11 +21,11 @@ export default function CoursesPage() {
             src={bgImage.imageUrl}
             alt="Background"
             fill
-            className="object-cover opacity-40 brightness-[0.3]"
+            className="object-cover opacity-80 brightness-[0.7]"
             priority
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/20 to-background" />
       </div>
 
       {/* Navigation Header */}
