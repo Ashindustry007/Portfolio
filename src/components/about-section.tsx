@@ -66,7 +66,7 @@ export function AboutSection() {
             </div>
             <div className="space-y-1">
               <h4 className="font-headline font-bold text-white">Focus</h4>
-              <p className="text-[11px] text-muted-foreground uppercase tracking-wider font-mono">Deep Learning / RAG</p>
+              <p className="text-[11px] text-muted-foreground uppercase tracking-wider font-mono">Deep Learning / Computer vision</p>
               <p className="text-[11px] text-muted-foreground uppercase tracking-wider font-mono">Agentic AI Systems</p>
             </div>
           </div>
