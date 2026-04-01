@@ -57,7 +57,7 @@ export const projects = [
     imageKey: "project-vocal"
   },
   {
-    title: "Population Growth Deep Learning",
+    title: "Population Growth Prediction",
     description: "Built a deep learning pipeline to predict exponential growth rates from genetic data, benchmarking ANNs against Deep Transformer and MultiTask Learning architectures.",
     imageKey: "project-population"
   }
