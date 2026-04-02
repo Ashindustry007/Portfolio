@@ -9,7 +9,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function CoursesPage() {
   const { scrollY } = useScroll();
-  // Increased minimum opacity from 0.1 to 0.3 for more visibility
+  // Increased minimum opacity for more visibility
   const bgOpacity = useTransform(scrollY, [0, 600], [1, 0.3]);
 
   return (
@@ -22,10 +22,9 @@ export default function CoursesPage() {
           opacity: bgOpacity 
         }}
       />
-      {/* Left-to-right gradient softened for visibility */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/40 to-transparent pointer-events-none" />
-      {/* Bottom fade gradient softened */}
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/60 pointer-events-none" />
+      {/* Softened gradients for maximum image visibility */}
+      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background/80 via-background/20 to-transparent pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/40 pointer-events-none" />
 
       {/* Wrapped Content Layer */}
       <div className="relative z-10">
@@ -151,45 +150,6 @@ export default function CoursesPage() {
                 </div>
               </TabsContent>
             </Tabs>
-          </div>
-        </section>
-
-        {/* Specializations & Additional Courses */}
-        <section className="py-24 px-8 border-t border-white/5 bg-black/20 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto space-y-16">
-            <div className="flex flex-col md:flex-row justify-between items-end gap-8">
-              <div className="space-y-4">
-                <span className="text-primary font-mono text-xs uppercase tracking-widest block">Certifications</span>
-                <h2 className="text-4xl font-headline font-bold uppercase">Specializations & <br /> Additional Courses</h2>
-              </div>
-              <p className="text-xs text-muted-foreground font-mono uppercase tracking-widest max-w-xs text-right">
-                Professional development and external research specializations.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {academicData.additionalCourses.map((course, idx) => (
-                <div key={idx} className="p-6 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-md hover:border-primary/40 transition-all duration-500 group flex flex-col">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
-                      <ExternalLink className="text-primary" size={16} />
-                    </div>
-                    <span className="text-[10px] font-mono text-white/30">{course.date}</span>
-                  </div>
-                  <h4 className="text-lg font-headline font-bold text-white group-hover:text-primary transition-colors mb-2 leading-tight">
-                    {course.title}
-                  </h4>
-                  <p className="text-[11px] text-primary/60 font-mono uppercase tracking-wider mb-3">
-                    {course.provider}
-                  </p>
-                  {course.description && (
-                    <p className="text-[10px] text-muted-foreground leading-relaxed border-t border-white/5 pt-3 mt-auto">
-                      {course.description}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 

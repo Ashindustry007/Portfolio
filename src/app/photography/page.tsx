@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -24,7 +23,8 @@ export default function PhotographyPage() {
   const [isFallback, setIsFallback] = useState(false);
   
   const { scrollY } = useScroll();
-  const bgOpacity = useTransform(scrollY, [0, 600], [1, 0.1]);
+  // Increased visibility for the photography background
+  const bgOpacity = useTransform(scrollY, [0, 600], [1, 0.4]);
 
   useEffect(() => {
     async function fetchFeed() {
@@ -36,12 +36,10 @@ export default function PhotographyPage() {
           setPosts(data);
           setIsFallback(false);
         } else {
-          // Silent fallback if API is unconfigured or fails
           throw new Error("Unconfigured");
         }
       } catch (err) {
         setIsFallback(true);
-        // Fallback to high-quality curated sample data based on config
         const fallbackPosts: InstagramPost[] = photographyData.map((item) => ({
           id: item.id,
           media_url: `https://picsum.photos/seed/${item.imageSeed}/800/1000`,
@@ -67,7 +65,7 @@ export default function PhotographyPage() {
           opacity: bgOpacity 
         }}
       />
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-black/60 pointer-events-none" />
 
       {/* Content Layer */}
       <div className="relative z-10">
@@ -155,11 +153,10 @@ export default function PhotographyPage() {
                               alt={post.caption}
                               width={800}
                               height={1000}
-                              unoptimized={true} // For external Instagram/Picsum URLs
+                              unoptimized={true}
                               className="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-700"
                             />
                             
-                            {/* Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
                               <div className="space-y-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                                 <div className="flex justify-between items-center">

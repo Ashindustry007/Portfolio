@@ -4,51 +4,46 @@ AI Engineer & MSCS Student Portfolio for Ashish Kumar Panda.
 
 ## 💸 Zero-Cost Deployment Guide
 
-To host this AI-powered portfolio for **completely free**, follow these steps:
+To host this AI-powered portfolio for **completely free**, you have two excellent options:
 
-### 1. Get a Free Gemini API Key
-This app uses Genkit and Google AI. You can get a free API key:
-1. Go to [Google AI Studio](https://aistudio.google.com/).
-2. Create a new API Key.
-3. You will use this in the next step.
+### Option A: Firebase (Recommended for Google AI/Genkit)
+Firebase App Hosting requires the **Blaze Plan** (Pay-as-you-go) because it uses Cloud Run. **However, it is still $0/month for personal use.**
 
-### 2. Deploy to Firebase (Free Tier / Spark Plan)
-Firebase's **Spark Plan** is $0/month and provides enough resources for a high-traffic personal portfolio.
+1. **Why Blaze?**: It enables Google Cloud resources. As long as you stay within the [Cloud Run Free Tier](https://cloud.google.com/run/pricing) (which is huge), you won't be charged.
+2. **Setup**:
+   - Go to [Firebase Console](https://console.firebase.google.com/).
+   - Upgrade to **Blaze** (you'll need a card, but the bill stays $0 for low traffic).
+   - Navigate to **Build > App Hosting**.
+   - Connect your GitHub repo.
+3. **Environment Variables**: In App Hosting settings, add:
+   - `GOOGLE_GENAI_API_KEY`: Your key from [Google AI Studio](https://aistudio.google.com/).
 
-1. **Push your code to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Ready for free deployment"
-   git push origin main
-   ```
-2. **Go to the [Firebase Console](https://console.firebase.google.com/)**.
-3. Create a new project (select the **Spark Plan**).
-4. Navigate to **Build > App Hosting**.
-5. Click **Get Started** and connect your GitHub repo.
-6. **Important (Environment Variables)**: During setup or in the App Hosting settings after deployment, add your Gemini API key:
-   - Key: `GOOGLE_GENAI_API_KEY`
-   - Value: `YOUR_API_KEY_FROM_STEP_1`
-7. Firebase will automatically build and host your site.
+### Option B: Vercel (Truly $0, No Credit Card)
+Vercel is the easiest way to host Next.js apps for free without a credit card.
+
+1. Create a free account at [Vercel](https://vercel.com/).
+2. Import your GitHub repository.
+3. **Environment Variables**: Add `GOOGLE_GENAI_API_KEY` during setup.
+4. Deploy! It automatically handles the server-side AI logic.
 
 ---
 
 ## 🛠️ Troubleshooting common issues
 
+### Why not GitHub Pages?
+GitHub Pages only hosts static files. Because this portfolio uses **Genkit (AI)** and **Server-Side Rendering**, it requires a server environment (like Firebase or Vercel) to process the AI requests.
+
 ### "6k Files" Git Issue
-If Git is trying to upload 6,000+ files, run these commands to clean it up:
+If Git is trying to upload 6,000+ files, it's because it's tracking `node_modules`. Run these commands:
 ```bash
 git rm -r --cached .
 git add .
-git commit -m "Cleaned repository"
+git commit -m "Fixed gitignore"
 git push origin main --force
 ```
-
-### Why not GitHub Pages?
-GitHub Pages only hosts static files. Because this portfolio uses **Server-Side Rendering (SSR)** and **AI (Genkit)**, it requires a server environment like Firebase App Hosting to function correctly.
 
 ## Tech Stack
 - **Framework**: Next.js 15 (App Router)
 - **AI Integration**: Genkit (Google AI)
-- **Free Hosting**: Firebase App Hosting (Spark Plan)
 - **Styling**: Tailwind CSS + ShadCN UI
 - **Animations**: Framer Motion
