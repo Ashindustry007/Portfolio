@@ -19,8 +19,8 @@ export function CTASection() {
           unoptimized={true}
           className="object-cover object-right grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
         />
-        {/* Left-to-right gradient to ensure text legibility - further softened for image visibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/20 to-transparent" />
+        {/* Left-to-right gradient to ensure text legibility - pinned to left to protect text */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/30 to-transparent" />
         {/* Top and bottom fades for smooth transition */}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
       </div>
