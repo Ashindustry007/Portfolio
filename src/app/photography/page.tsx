@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -20,38 +21,23 @@ interface InstagramPost {
 export default function PhotographyPage() {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isFallback, setIsFallback] = useState(false);
   
   const { scrollY } = useScroll();
   const bgOpacity = useTransform(scrollY, [0, 400], [0.8, 0.1]);
 
   useEffect(() => {
-    async function fetchFeed() {
-      try {
-        const response = await fetch('/api/instagram');
-        const data = await response.json();
-        
-        if (response.ok && !data.error && Array.isArray(data)) {
-          setPosts(data);
-          setIsFallback(false);
-        } else {
-          throw new Error("Unconfigured");
-        }
-      } catch (err) {
-        setIsFallback(true);
-        const fallbackPosts: InstagramPost[] = photographyData.map((item) => ({
-          id: item.id,
-          media_url: `https://picsum.photos/seed/${item.imageSeed}/800/1000`,
-          permalink: siteConfig.socials.instagram,
-          caption: `${item.title} - ${item.location}`,
-          timestamp: new Date().toISOString(),
-        }));
-        setPosts(fallbackPosts);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchFeed();
+    // In static mode, we use the local data from config.ts
+    // This ensures zero-cost hosting on GitHub Pages
+    const staticPosts: InstagramPost[] = photographyData.map((item) => ({
+      id: item.id,
+      media_url: `https://picsum.photos/seed/${item.imageSeed}/800/1000`,
+      permalink: siteConfig.socials.instagram,
+      caption: `${item.title} - ${item.location}`,
+      timestamp: new Date().toISOString(),
+    }));
+    
+    setPosts(staticPosts);
+    setLoading(false);
   }, []);
 
   return (
@@ -110,13 +96,11 @@ export default function PhotographyPage() {
         {/* Gallery Grid */}
         <section className="py-24 px-8 min-h-[600px]">
           <div className="max-w-7xl mx-auto">
-            {isFallback && !loading && (
-              <div className="mb-12 p-3 rounded-xl bg-primary/5 border border-primary/10 text-center">
-                <p className="text-[9px] font-mono uppercase tracking-[0.3em] text-primary/60">
-                  Viewing curated showcase (Live Instagram Feed Offline)
-                </p>
-              </div>
-            )}
+            <div className="mb-12 p-3 rounded-xl bg-primary/5 border border-primary/10 text-center">
+              <p className="text-[9px] font-mono uppercase tracking-[0.3em] text-primary/60">
+                Viewing curated showcase
+              </p>
+            </div>
 
             <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
               <AnimatePresence mode="popLayout">
@@ -152,7 +136,6 @@ export default function PhotographyPage() {
                               alt={post.caption}
                               width={800}
                               height={1000}
-                              unoptimized={true}
                               className="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-700"
                             />
                             

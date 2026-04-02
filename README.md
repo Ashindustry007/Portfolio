@@ -1,49 +1,39 @@
+
 # Panda Portfolio
 
 AI Engineer & MSCS Student Portfolio for Ashish Kumar Panda.
 
-## 💸 Zero-Cost Deployment Guide
+## 🚀 GitHub Pages Deployment ($0/month)
 
-To host this AI-powered portfolio for **completely free**, you have two excellent options:
+This portfolio is configured for **Static Site Generation (SSG)**, allowing you to host it completely for free on GitHub Pages.
 
-### Option A: Firebase (Recommended for Google AI/Genkit)
-Firebase App Hosting requires the **Blaze Plan** (Pay-as-you-go) because it uses Cloud Run. **However, it is still $0/month for personal use.**
-
-1. **Why Blaze?**: It enables Google Cloud resources. As long as you stay within the [Cloud Run Free Tier](https://google.com/run/pricing) (which is huge), you won't be charged.
-2. **Setup**:
-   - Go to [Firebase Console](https://console.firebase.google.com/).
-   - Upgrade to **Blaze** (you'll need a card, but the bill stays $0 for low traffic).
-   - Navigate to **Build > App Hosting**.
-   - Connect your GitHub repo.
-3. **Environment Variables**: In App Hosting settings, add:
-   - `GOOGLE_GENAI_API_KEY`: Your key from [Google AI Studio](https://aistudio.google.com/).
-
-### Option B: Vercel (Truly $0, No Credit Card)
-Vercel is the easiest way to host Next.js apps for free without a credit card.
-
-1. Create a free account at [Vercel](https://vercel.com/).
-2. Import your GitHub repository.
-3. **Environment Variables**: Add `GOOGLE_GENAI_API_KEY` during setup.
-4. Deploy! It automatically handles the server-side AI logic.
-
----
-
-## 🛠️ Troubleshooting common issues
-
-### Why not GitHub Pages?
-GitHub Pages only hosts static files. Because this portfolio uses **Genkit (AI)** and **Server-Side Rendering**, it requires a server environment (like Firebase or Vercel) to process the AI requests.
-
-### "6k Files" Git Issue
-If Git is trying to upload 6,000+ files, it's because it's tracking `node_modules`. Ensure the `.gitignore` file is present in your project root, then run these commands:
+### 1. Prepare for Push
+Ensure your local environment is clean. If you see thousands of files in Git, it's because `node_modules` or `.next` are being tracked. Run these commands:
 ```bash
 git rm -r --cached .
 git add .
-git commit -m "Fixed gitignore and cleaned up repo"
-git push origin main --force
+git commit -m "Configure static export for GitHub Pages"
 ```
 
+### 2. Deployment Steps
+1. Push your code to the `main` branch of your repository: `https://github.com/Ashindustry007/ashindustry007.github.io`.
+2. Go to your GitHub Repository **Settings > Pages**.
+3. Under **Build and deployment > Source**, select **GitHub Actions**.
+4. GitHub will automatically detect the Next.js project and provide a "Next.js" workflow template. Click **Configure**.
+5. Commit the suggested `.github/workflows/nextjs.yml` file.
+6. GitHub will now build and deploy your site automatically every time you push!
+
+### 🔧 Why GitHub Pages?
+- **Truly Free**: No credit card required.
+- **Fast**: Global CDN hosting.
+- **Automated**: Deploys directly from your code.
+
+*Note: In static mode, any server-side features (like live Instagram API calls) are replaced with curated static data from `src/lib/config.ts`.*
+
+---
+
 ## Tech Stack
-- **Framework**: Next.js 15 (App Router)
-- **AI Integration**: Genkit (Google AI)
+- **Framework**: Next.js 15 (Static Export)
 - **Styling**: Tailwind CSS + ShadCN UI
 - **Animations**: Framer Motion
+- **Hosting**: GitHub Pages
