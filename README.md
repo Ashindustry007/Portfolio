@@ -2,53 +2,53 @@
 
 AI Engineer & MSCS Student Portfolio for Ashish Kumar Panda.
 
-## 🚀 Why is my site only showing the README on GitHub?
+## 💸 Zero-Cost Deployment Guide
 
-GitHub Pages (the `.github.io` URL) only hosts **static HTML**. Because this is a high-performance **Next.js** app with **AI (Genkit)** features, it needs a real server to run. 
+To host this AI-powered portfolio for **completely free**, follow these steps:
 
-**To host your portfolio properly, use Firebase App Hosting:**
+### 1. Get a Free Gemini API Key
+This app uses Genkit and Google AI. You can get a free API key:
+1. Go to [Google AI Studio](https://aistudio.google.com/).
+2. Create a new API Key.
+3. You will use this in the next step.
 
-### Step 1: Push your code to GitHub
-If you haven't already, ensure your source code is on GitHub:
-```bash
-git add .
-git commit -m "Ready for deployment"
-git push origin main
-```
+### 2. Deploy to Firebase (Free Tier / Spark Plan)
+Firebase's **Spark Plan** is $0/month and provides enough resources for a high-traffic personal portfolio.
 
-### Step 2: Deploy to Firebase App Hosting
-1. Go to the [Firebase Console](https://console.firebase.google.com/).
-2. Select your project.
-3. In the left sidebar, click **Build** > **App Hosting**.
-4. Click **Get Started** and connect your GitHub account.
-5. Select your repository (`Ashindustry007/ashindustry007.github.io`).
-6. Set the deployment settings (default settings usually work, ensure the root directory is correct).
-7. Firebase will now automatically build and host your Next.js app every time you push to `main`.
+1. **Push your code to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Ready for free deployment"
+   git push origin main
+   ```
+2. **Go to the [Firebase Console](https://console.firebase.google.com/)**.
+3. Create a new project (select the **Spark Plan**).
+4. Navigate to **Build > App Hosting**.
+5. Click **Get Started** and connect your GitHub repo.
+6. **Important (Environment Variables)**: During setup or in the App Hosting settings after deployment, add your Gemini API key:
+   - Key: `GOOGLE_GENAI_API_KEY`
+   - Value: `YOUR_API_KEY_FROM_STEP_1`
+7. Firebase will automatically build and host your site.
 
 ---
 
-## 🛠️ Local Development & Maintenance
+## 🛠️ Troubleshooting common issues
 
-### How to fix the "6k Files" issue
-If you see 6,000+ files pending in Git, it means `node_modules` or `.next` folders were accidentally tracked. Run these commands:
+### "6k Files" Git Issue
+If Git is trying to upload 6,000+ files, run these commands to clean it up:
+```bash
+git rm -r --cached .
+git add .
+git commit -m "Cleaned repository"
+git push origin main --force
+```
 
-1. **Clear the Git cache**:
-   ```bash
-   git rm -r --cached .
-   ```
-2. **Add everything back** (the `.gitignore` will now work):
-   ```bash
-   git add .
-   ```
-3. **Commit and Force Push**:
-   ```bash
-   git commit -m "Cleaned repository structure"
-   git push origin main --force
-   ```
+### Why not GitHub Pages?
+GitHub Pages only hosts static files. Because this portfolio uses **Server-Side Rendering (SSR)** and **AI (Genkit)**, it requires a server environment like Firebase App Hosting to function correctly.
 
 ## Tech Stack
 - **Framework**: Next.js 15 (App Router)
 - **AI Integration**: Genkit (Google AI)
+- **Free Hosting**: Firebase App Hosting (Spark Plan)
 - **Styling**: Tailwind CSS + ShadCN UI
 - **Animations**: Framer Motion
-- **Hosting**: Firebase App Hosting (Supports SSR & AI)
