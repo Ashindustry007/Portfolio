@@ -11,18 +11,18 @@ export function CTASection() {
   return (
     <section className="relative py-48 px-8 bg-background border-t border-white/5 overflow-hidden group">
       {/* Cinematic Background Layer */}
-      <div className="absolute inset-0 z-0 opacity-60 transition-opacity duration-700">
+      <div className="absolute inset-0 z-0 opacity-90 transition-opacity duration-700">
         <Image
           src="https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/15d1e769-a062-4f93-9554-bf19ab63428e.png"
           alt="CTA Background"
           fill
           unoptimized={true}
-          className="object-cover object-[95%_center] translate-x-[10%] grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
+          className="object-cover object-[95%_center] translate-x-[10%] transition-all duration-1000 group-hover:scale-105"
         />
         {/* Left-to-right gradient to ensure text legibility - pinned to left to protect text */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
-        {/* Top and bottom fades for smooth transition */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/20 to-transparent" />
+        {/* Top and bottom fades for smooth transition - softened for more image visibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/30" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
