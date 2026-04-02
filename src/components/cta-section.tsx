@@ -11,7 +11,7 @@ export function CTASection() {
   return (
     <section className="relative py-48 px-8 bg-background border-t border-white/5 overflow-hidden">
       {/* Cinematic Background Layer */}
-      <div className="absolute inset-0 z-0 opacity-20">
+      <div className="absolute inset-0 z-0 opacity-40">
         <Image
           src="https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/15d1e769-a062-4f93-9554-bf19ab63428e.png"
           alt="CTA Background"
@@ -19,8 +19,8 @@ export function CTASection() {
           unoptimized={true}
           className="object-cover object-right grayscale transition-transform duration-1000 group-hover:scale-105"
         />
-        {/* Left-to-right gradient to ensure text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+        {/* Left-to-right gradient to ensure text legibility - softened for visibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
         {/* Top and bottom fades for smooth transition */}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
       </div>
