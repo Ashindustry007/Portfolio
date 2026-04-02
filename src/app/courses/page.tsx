@@ -2,7 +2,7 @@
 
 import { academicData } from "@/lib/config";
 import { Footer } from "@/components/footer";
-import { ArrowLeft, Award } from "lucide-react";
+import { ArrowLeft, Award, ExternalLink, Calendar } from "lucide-react";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -21,7 +21,7 @@ export default function CoursesPage() {
           opacity: bgOpacity 
         }}
       />
-      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/80 to-transparent pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/90 to-transparent pointer-events-none" />
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-background pointer-events-none" />
 
       {/* Wrapped Content Layer */}
@@ -148,6 +148,57 @@ export default function CoursesPage() {
                 </div>
               </TabsContent>
             </Tabs>
+          </div>
+        </section>
+
+        {/* Additional Coursework Section */}
+        <section className="py-32 px-8 bg-black/20 border-t border-white/5">
+          <div className="max-w-7xl mx-auto space-y-16">
+            <div className="space-y-4">
+              <span className="text-primary font-mono text-xs uppercase tracking-widest block">Specializations</span>
+              <h2 className="text-4xl font-headline font-bold uppercase">Professional Certifications</h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {academicData.additionalCourses.map((course, idx) => (
+                <div 
+                  key={idx} 
+                  className="group p-8 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md hover:border-primary/40 transition-all duration-500"
+                >
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-start">
+                      <div className="h-10 w-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                        <Award className="text-primary" size={18} />
+                      </div>
+                      <div className="flex items-center gap-2 text-[10px] font-mono text-white/30">
+                        <Calendar size={12} />
+                        {course.date}
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-headline font-bold text-white group-hover:text-primary transition-colors leading-tight">
+                        {course.title}
+                      </h3>
+                      <p className="text-[11px] text-primary/60 font-mono uppercase tracking-widest">
+                        {course.provider}
+                      </p>
+                    </div>
+
+                    {course.description && (
+                      <p className="text-[12px] text-muted-foreground leading-relaxed">
+                        {course.description}
+                      </p>
+                    )}
+                  </div>
+                  
+                  <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-white/20">Verified Credential</span>
+                    <ExternalLink size={12} className="text-white/20 group-hover:text-primary transition-colors" />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
