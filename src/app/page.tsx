@@ -11,7 +11,7 @@ import { BeyondSection } from "@/components/beyond-section";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { siteConfig } from "@/lib/config";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -23,7 +23,7 @@ export default function Home() {
 
     let loadedCount = 0;
     const totalFrames = siteConfig.framesCount;
-    const batchSize = 3; // Smaller batches for more consistent progress and less UI blocking
+    const batchSize = 5;
 
     const loadBatch = async (start: number, end: number) => {
       const promises = [];
@@ -49,15 +49,15 @@ export default function Home() {
     };
 
     const startLoading = async () => {
-      // Load all frames in batches to avoid network congestion
+      // Load all frames in batches
       for (let i = 0; i < totalFrames; i += batchSize) {
         await loadBatch(i, i + batchSize);
       }
       
-      // Artificial slight delay for a smooth transition after 100%
+      // Slight delay for a smooth transition after 100%
       setTimeout(() => {
         setLoading(false);
-      }, 800);
+      }, 1000);
     };
 
     startLoading();
@@ -65,26 +65,32 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-background">
-      <AnimatePresence>
-        {loading && (
+      <AnimatePresence mode="wait">
+        {loading ? (
           <LoadingScreen 
+            key="loader"
             progress={loadProgress}
             onComplete={() => setLoading(false)} 
           />
+        ) : (
+          <motion.div 
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          >
+            <ParallaxHero sharedImages={imagesRef.current} />
+            <div id="about">
+              <AboutSection />
+            </div>
+            <ExperienceSection />
+            <ProjectsSection />
+            <BeyondSection />
+            <CTASection />
+            <Footer />
+          </motion.div>
         )}
       </AnimatePresence>
-      
-      <div className={loading ? "hidden" : "block"}>
-        <ParallaxHero sharedImages={imagesRef.current} />
-        <div id="about">
-          <AboutSection />
-        </div>
-        <ExperienceSection />
-        <ProjectsSection />
-        <BeyondSection />
-        <CTASection />
-        <Footer />
-      </div>
     </main>
   );
 }

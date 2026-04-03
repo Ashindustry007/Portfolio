@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { siteConfig } from "@/lib/config";
 import { Github, Linkedin, Instagram, MousePointer2 } from "lucide-react";
 import Link from "next/link";
@@ -14,24 +14,13 @@ interface ParallaxHeroProps {
 export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [frameIndex, setFrameIndex] = useState(0);
+  const [canvasOpacity, setCanvasOpacity] = useState(0);
   
-  // High-quality first frame URL for the extreme fallback case
   const firstFrameUrl = `${siteConfig.framesBaseUrl}000${siteConfig.framesSuffix}`;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const maxScroll = window.innerHeight * 1.5;
-      const rawIdx = Math.floor((scrollY / maxScroll) * siteConfig.framesCount);
-      const idx = Math.min(siteConfig.framesCount - 1, Math.max(0, rawIdx));
-      setFrameIndex(idx);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const renderFrame = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, img: HTMLImageElement) => {
+  const renderFrame = useCallback((ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, img: HTMLImageElement) => {
+    if (!img) return;
+    
     const canvasAspect = canvas.width / canvas.height;
     const imgAspect = img.width / img.height;
     let drawW, drawH, drawX, drawY;
@@ -48,9 +37,24 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
       drawX = (canvas.width - drawW) / 2;
     }
 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, drawX, drawY, drawW, drawH);
-  };
+  }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const maxScroll = window.innerHeight * 1.5;
+      const rawIdx = Math.floor((scrollY / maxScroll) * (siteConfig.framesCount - 1));
+      const idx = Math.min(siteConfig.framesCount - 1, Math.max(0, rawIdx));
+      setFrameIndex(idx);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Initial draw and frame index updates
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -58,48 +62,56 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
     if (!ctx) return;
 
     const img = sharedImages[frameIndex];
-    if (img && img.complete) {
+    if (img && (img.complete || img.naturalWidth > 0)) {
       renderFrame(ctx, canvas, img);
+      if (canvasOpacity === 0) {
+        // Fade in canvas once we have successfully rendered at least one frame
+        requestAnimationFrame(() => setCanvasOpacity(1));
+      }
     }
-  }, [frameIndex, sharedImages]);
+  }, [frameIndex, sharedImages, renderFrame, canvasOpacity]);
 
+  // Handle Resize
   useEffect(() => {
     const handleResize = () => {
-      if (canvasRef.current) {
-        canvasRef.current.width = window.innerWidth;
-        canvasRef.current.height = window.innerHeight;
-        
-        // Immediate render on resize to avoid black flickering
-        const ctx = canvasRef.current.getContext("2d", { alpha: false });
-        if (ctx && sharedImages[frameIndex]) {
-          renderFrame(ctx, canvasRef.current, sharedImages[frameIndex]);
-        }
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      const ctx = canvas.getContext("2d", { alpha: false });
+      const img = sharedImages[frameIndex];
+      if (ctx && img) {
+        renderFrame(ctx, canvas, img);
       }
     };
+
     handleResize();
     window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
-  }, [frameIndex, sharedImages]);
+  }, [frameIndex, sharedImages, renderFrame]);
 
   return (
     <div className="relative h-[250vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden rounded-b-[4rem] bg-background shadow-2xl">
-        {/* Background Fallback (Static Image Bridge) */}
+        {/* Background Fallback (High Quality Static Image) */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={firstFrameUrl}
             alt="Hero Background Fallback"
             fill
             priority
-            className="object-cover opacity-50"
+            className="object-cover opacity-100"
             unoptimized
           />
         </div>
 
-        {/* Primary Cinematic Sequence */}
+        {/* Cinematic Sequence Canvas */}
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full object-cover z-10"
+          style={{ opacity: canvasOpacity }}
+          className="absolute inset-0 h-full w-full object-cover z-10 transition-opacity duration-700 pointer-events-none"
         />
         
         <div className="absolute inset-0 hero-gradient opacity-30 z-20" />
