@@ -17,47 +17,66 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
   const imagesRef = useRef<HTMLImageElement[]>([]);
+  const criticalLoadedRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    let loadedCount = 0;
     const totalFrames = siteConfig.framesCount;
-    const batchSize = 5;
+    const criticalThreshold = 25; // Unlock the site after these many frames
+    let loadedCount = 0;
 
-    const loadBatch = async (start: number, end: number) => {
-      const promises = [];
-      for (let i = start; i < end && i < totalFrames; i++) {
-        promises.push(new Promise<void>((resolve) => {
-          const img = new Image();
-          const idx = i.toString().padStart(3, "0");
-          img.src = `${siteConfig.framesBaseUrl}${idx}${siteConfig.framesSuffix}`;
-          img.onload = () => {
-            imagesRef.current[i] = img;
-            loadedCount++;
-            setLoadProgress(Math.round((loadedCount / totalFrames) * 100));
-            resolve();
-          };
-          img.onerror = () => {
-            loadedCount++;
-            setLoadProgress(Math.round((loadedCount / totalFrames) * 100));
-            resolve();
-          };
-        }));
-      }
-      await Promise.all(promises);
+    const loadImage = (index: number) => {
+      return new Promise<void>((resolve) => {
+        const img = new Image();
+        const idx = index.toString().padStart(3, "0");
+        img.src = `${siteConfig.framesBaseUrl}${idx}${siteConfig.framesSuffix}`;
+        img.onload = () => {
+          imagesRef.current[index] = img;
+          loadedCount++;
+          
+          // Update progress relative to critical threshold for the loader
+          if (!criticalLoadedRef.current) {
+            const progress = Math.min(100, Math.round((loadedCount / criticalThreshold) * 100));
+            setLoadProgress(progress);
+            
+            if (loadedCount >= criticalThreshold) {
+              criticalLoadedRef.current = true;
+              setTimeout(() => setLoading(false), 500);
+            }
+          }
+          resolve();
+        };
+        img.onerror = () => {
+          loadedCount++;
+          resolve();
+        };
+      });
     };
 
     const startLoading = async () => {
-      // Load all frames in batches
-      for (let i = 0; i < totalFrames; i += batchSize) {
-        await loadBatch(i, i + batchSize);
+      // 1. Load critical frames first (Sequential for stability)
+      for (let i = 0; i < criticalThreshold; i++) {
+        await loadImage(i);
       }
-      
-      // Slight delay for a smooth transition after 100%
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+
+      // 2. Load remaining frames in small background batches (Non-blocking)
+      const backgroundBatchSize = 5;
+      for (let i = criticalThreshold; i < totalFrames; i += backgroundBatchSize) {
+        const batch = [];
+        for (let j = i; j < i + backgroundBatchSize && j < totalFrames; j++) {
+          batch.push(loadImage(j));
+        }
+        // Use requestIdleCallback if available, otherwise just await the batch
+        if ('requestIdleCallback' in window) {
+          await new Promise(resolve => window.requestIdleCallback(async () => {
+            await Promise.all(batch);
+            resolve(null);
+          }));
+        } else {
+          await Promise.all(batch);
+        }
+      }
     };
 
     startLoading();

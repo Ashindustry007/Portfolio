@@ -37,7 +37,6 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
       drawX = (canvas.width - drawW) / 2;
     }
 
-    // Force draw immediately
     ctx.fillStyle = "#0a0a0a";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, drawX, drawY, drawW, drawH);
@@ -49,12 +48,17 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
       const maxScroll = window.innerHeight * 1.5;
       const rawIdx = Math.floor((scrollY / maxScroll) * (siteConfig.framesCount - 1));
       const idx = Math.min(siteConfig.framesCount - 1, Math.max(0, rawIdx));
-      setFrameIndex(idx);
+      
+      // Only update if we actually have the image loaded for this index
+      // Otherwise, the static background or previous frame stays
+      if (sharedImages[idx]) {
+        setFrameIndex(idx);
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [sharedImages]);
 
   // Initial draw and frame index updates
   useEffect(() => {
@@ -96,15 +100,15 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
   return (
     <div className="relative h-[250vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden rounded-b-[4rem] bg-background shadow-2xl">
-        {/* Background Fallback (High Quality Static Image) */}
+        {/* Static Background Layer (Visible until canvas renders) */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={firstFrameUrl}
             alt="Hero Background Fallback"
             fill
             priority
-            className="object-cover opacity-100"
-            unoptimized={true} /* We keep the frame sequence unoptimized to avoid Vercel processing overhead on 192 frames */
+            className="object-cover"
+            unoptimized={true}
           />
         </div>
 
@@ -170,13 +174,13 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
             </div>
 
             <nav className="flex space-x-8 uppercase text-[8px] tracking-[0.2em] font-medium text-white/30">
-              <Link href="/photography/" className="hover:text-primary transition-colors">
+              <Link href="/photography" className="hover:text-primary transition-colors">
                 Photography
               </Link>
-              <Link href="/extracurriculars/" className="hover:text-primary transition-colors">
+              <Link href="/extracurriculars" className="hover:text-primary transition-colors">
                 Extracurriculars
               </Link>
-              <Link href="/courses/" className="hover:text-primary transition-colors">
+              <Link href="/courses" className="hover:text-primary transition-colors">
                 Coursework
               </Link>
             </nav>
