@@ -15,6 +15,7 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [frameIndex, setFrameIndex] = useState(0);
   const [canvasOpacity, setCanvasOpacity] = useState(0);
+  const lastValidFrameRef = useRef<number>(0);
   
   const firstFrameUrl = `${siteConfig.framesBaseUrl}000${siteConfig.framesSuffix}`;
 
@@ -37,6 +38,7 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
       drawX = (canvas.width - drawW) / 2;
     }
 
+    // Use alpha: false optimization in context for better performance
     ctx.fillStyle = "#0a0a0a";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, drawX, drawY, drawW, drawH);
@@ -49,10 +51,13 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
       const rawIdx = Math.floor((scrollY / maxScroll) * (siteConfig.framesCount - 1));
       const idx = Math.min(siteConfig.framesCount - 1, Math.max(0, rawIdx));
       
-      // Only update if we actually have the image loaded for this index
-      // Otherwise, the static background or previous frame stays
+      // Intelligent fallback: If current frame isn't loaded, stay on the last valid one
+      // This prevents the "Laggy" black frames during scrolling
       if (sharedImages[idx]) {
         setFrameIndex(idx);
+        lastValidFrameRef.current = idx;
+      } else {
+        setFrameIndex(lastValidFrameRef.current);
       }
     };
 
@@ -60,7 +65,6 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [sharedImages]);
 
-  // Initial draw and frame index updates
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -71,12 +75,12 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
     if (img && (img.complete || img.naturalWidth > 0)) {
       renderFrame(ctx, canvas, img);
       if (canvasOpacity === 0) {
+        // Fade in canvas only when we have a real frame to show
         setCanvasOpacity(1);
       }
     }
   }, [frameIndex, sharedImages, renderFrame, canvasOpacity]);
 
-  // Handle Resize
   useEffect(() => {
     const handleResize = () => {
       const canvas = canvasRef.current;
@@ -100,7 +104,7 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
   return (
     <div className="relative h-[250vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden rounded-b-[4rem] bg-background shadow-2xl">
-        {/* Static Background Layer (Visible until canvas renders) */}
+        {/* Static Background Layer (Visible instantly to prevent black screen) */}
         <div className="absolute inset-0 z-0">
           <Image 
             src={firstFrameUrl}
