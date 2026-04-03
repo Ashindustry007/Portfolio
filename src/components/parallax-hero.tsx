@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { siteConfig } from "@/lib/config";
 import { Github, Linkedin, Instagram, MousePointer2 } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface ParallaxHeroProps {
   sharedImages: HTMLImageElement[];
@@ -14,10 +14,17 @@ interface ParallaxHeroProps {
 export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [frameIndex, setFrameIndex] = useState(0);
+  const [isScrolling, setIsScrolling] = useState(false);
+  
+  // High-quality first frame URL for the static bridge
+  const firstFrameUrl = `${siteConfig.framesBaseUrl}000${siteConfig.framesSuffix}`;
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
+      if (scrollY > 10) setIsScrolling(true);
+      else setIsScrolling(false);
+
       const maxScroll = window.innerHeight * 1.5;
       const rawIdx = Math.floor((scrollY / maxScroll) * siteConfig.framesCount);
       const idx = Math.min(siteConfig.framesCount - 1, Math.max(0, rawIdx));
@@ -31,14 +38,12 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: false }); // Optimization: disable alpha
+    const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
     const img = sharedImages[frameIndex];
     if (img && img.complete) {
       renderFrame(ctx, canvas, img);
-    } else if (img) {
-      img.onload = () => renderFrame(ctx, canvas, img);
     }
   }, [frameIndex, sharedImages]);
 
@@ -77,10 +82,23 @@ export function ParallaxHero({ sharedImages }: ParallaxHeroProps) {
   return (
     <div className="relative h-[250vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden rounded-b-[4rem] bg-background shadow-2xl">
+        {/* Static Bridge: High-priority image shown before sequence begins */}
+        <div className={`absolute inset-0 z-0 transition-opacity duration-1000 ${isScrolling ? 'opacity-0' : 'opacity-100'}`}>
+          <Image 
+            src={firstFrameUrl}
+            alt="Hero Background"
+            fill
+            priority
+            className="object-cover"
+            unoptimized
+          />
+        </div>
+
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 h-full w-full object-cover opacity-100"
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${isScrolling ? 'opacity-100' : 'opacity-0'}`}
         />
+        
         <div className="absolute inset-0 hero-gradient opacity-30" />
 
         <div className="relative z-10 grid h-full w-full grid-cols-1 md:grid-cols-2 px-12 py-16">
