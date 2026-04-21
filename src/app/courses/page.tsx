@@ -9,7 +9,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function CoursesPage() {
   const { scrollY } = useScroll();
-  const bgOpacity = useTransform(scrollY, [0, 400], [0.8, 0.1]);
+  // Increased starting and ending opacity for better visibility
+  const bgOpacity = useTransform(scrollY, [0, 600], [0.9, 0.2]);
 
   return (
     <main className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
@@ -21,8 +22,9 @@ export default function CoursesPage() {
           opacity: bgOpacity 
         }}
       />
-      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background via-background/90 to-transparent pointer-events-none" />
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-background pointer-events-none" />
+      {/* Softened gradients to allow better background clarity */}
+      <div className="fixed inset-0 z-0 bg-gradient-to-r from-background/80 via-background/60 to-transparent pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent to-background/90 pointer-events-none" />
 
       {/* Wrapped Content Layer */}
       <div className="relative z-10">
