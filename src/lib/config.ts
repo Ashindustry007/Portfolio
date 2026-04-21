@@ -102,7 +102,8 @@ export const academicData = {
         gpa: "TBD",
         courses: [
           "CSE 252D: Advanced Computer Vision",
-          "DSC 270 - Interpretable & Explainable ML"
+          "DSC 270 - Interpretable & Explainable ML",
+          "DSC 291 - Trustworthy Machine Learning"
         ]
       }
     ]
