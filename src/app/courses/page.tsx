@@ -97,8 +97,8 @@ export default function CoursesPage() {
                       <div className="flex justify-between items-start mb-6">
                         <h3 className="text-xl font-headline font-bold text-white group-hover:text-primary transition-colors">{term.id}</h3>
                         <div className="text-right">
-                          <span className="text-[10px] text-primary/40 font-mono uppercase tracking-widest block">Status</span>
-                          <p className="text-sm font-mono font-bold text-white/60">{term.id.includes('Spring') ? 'In Progress' : 'Completed'}</p>
+                          <span className="text-[10px] text-primary/40 font-mono uppercase tracking-widest block">Term GPA</span>
+                          <p className="text-sm font-mono font-bold text-primary">{term.gpa}</p>
                         </div>
                       </div>
                       <ul className="space-y-3">

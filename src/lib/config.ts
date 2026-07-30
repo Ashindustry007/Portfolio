@@ -78,7 +78,7 @@ export const academicData = {
     university: "University of California, San Diego (UCSD)",
     degree: "Master of Science (M.S.)",
     branch: "Computer Science",
-    cgpa: "3.516",
+    cgpa: "3.67",
     terms: [
       {
         id: "Fall 2025",
