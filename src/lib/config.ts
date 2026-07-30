@@ -9,7 +9,8 @@ export const siteConfig = {
   socials: {
     github: "https://github.com/Ashindustry007",
     linkedin: "https://linkedin.com/in/ashishkumar-panda",
-    instagram: "https://instagram.com/ash.galleryyy"
+    instagram: "https://instagram.com/ash.galleryyy",
+    email: "mailto:akpanda@ucsd.edu"
   },
   skills: [
     { id: "#01", label: "AI & Machine Learning" },
@@ -18,7 +19,7 @@ export const siteConfig = {
     { id: "#04", label: "Software Engineering" }
   ],
   framesCount: 192,
-  framesBaseUrl: "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Webp%20Sequence/frame_",
+  framesBaseUrl: "/sequence/frame_",
   framesSuffix: "_delay-0.042s.png"
 };
 

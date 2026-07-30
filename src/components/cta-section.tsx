@@ -13,7 +13,7 @@ export function CTASection() {
       {/* Cinematic Background Layer */}
       <div className="absolute inset-0 z-0 opacity-90 transition-opacity duration-700">
         <Image
-          src="https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/15d1e769-a062-4f93-9554-bf19ab63428e.png"
+          src="/images/15d1e769-a062-4f93-9554-bf19ab63428e-ezgif.com-png-to-webp-converter.webp"
           alt="CTA Background"
           fill
           unoptimized={true}
@@ -47,7 +47,7 @@ export function CTASection() {
               <Link href={siteConfig.socials.github}>View GitHub Repo</Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="h-14 px-10 rounded-full font-headline uppercase tracking-widest text-sm transition-all hover:scale-105 border-white/20 hover:border-primary backdrop-blur-sm">
-              <Link href={`mailto:contact@ashish.me`}>Contact Me</Link>
+              <Link href={siteConfig.socials.email}>Contact Me</Link>
             </Button>
           </div>
         </motion.div>

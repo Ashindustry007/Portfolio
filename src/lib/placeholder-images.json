@@ -3,43 +3,43 @@
     {
       "id": "avatar",
       "description": "Portrait of Ashish Kumar Panda",
-      "imageUrl": "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_10337cfa6353d339fb244045bb2d450ddr-ezgif.com-png-to-webp-converter.webp",
+      "imageUrl": "/images/Whisk_10337cfa6353d339fb244045bb2d450ddr-ezgif.com-png-to-webp-converter.webp",
       "imageHint": "man portrait"
     },
     {
       "id": "project-retinal",
       "description": "Retinal Vessel Segmentation Visualization",
-      "imageUrl": "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_e6deb04c1858e1d8757411acfc445585dr-ezgif.com-png-to-webp-converter.webp",
+      "imageUrl": "/images/Whisk_f82dab339ee581d98b64e81ba16dadbdeg-ezgif.com-png-to-webp-converter.webp",
       "imageHint": "medical scan"
     },
     {
       "id": "project-vocal",
       "description": "Non-Invasive Vocal Bio-Marker Visualization",
-      "imageUrl": "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_be4dbcff04e1d5581cc4ec8b816fc4aadr.png",
+      "imageUrl": "/images/Whisk_e7af2640e43f76a888a45dcf29261296eg-ezgif.com-png-to-webp-converter.webp",
       "imageHint": "audio signal"
     },
     {
       "id": "project-population",
       "description": "Population Growth Prediction Visualization",
-      "imageUrl": "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_a3c2231e563c5008d154be25db34c8efeg-ezgif.com-png-to-webp-converter.webp",
+      "imageUrl": "/images/Whisk_e2dcaa7c302f8248dbc4a95e628ab799eg-ezgif.com-png-to-webp-converter.webp",
       "imageHint": "dna science"
     },
     {
       "id": "photography-thumbnail",
       "description": "Photography portfolio preview",
-      "imageUrl": "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_2fef7c40d3875ff89344a9b2ecb13813eg-ezgif.com-png-to-webp-converter.webp",
+      "imageUrl": "/images/Whisk_2fef7c40d3875ff89344a9b2ecb13813eg-ezgif.com-png-to-webp-converter.webp",
       "imageHint": "cinema photo"
     },
     {
       "id": "extracurricular-thumbnail",
       "description": "Beyond the classroom activities",
-      "imageUrl": "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_050fef88eeb28d78dd1491ef96f1ce80dr-ezgif.com-png-to-webp-converter.webp",
+      "imageUrl": "/images/Whisk_050fef88eeb28d78dd1491ef96f1ce80dr-ezgif.com-png-to-webp-converter.webp",
       "imageHint": "adventure extra"
     },
     {
       "id": "academic-thumbnail",
       "description": "Academic foundation and courses",
-      "imageUrl": "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_a3792c5199b1eb7ba9f4435d6860072beg-ezgif.com-png-to-webp-converter.webp",
+      "imageUrl": "/images/Whisk_a3792c5199b1eb7ba9f4435d6860072beg-ezgif.com-png-to-webp-converter.webp",
       "imageHint": "campus library"
     }
   ]

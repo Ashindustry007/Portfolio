@@ -43,7 +43,7 @@ export function Footer() {
           <Link href="/courses" className="hover:text-primary transition-colors">Courses</Link>
           <Link href="/extracurriculars" className="hover:text-primary transition-colors">Extracurriculars</Link>
           <Link href="/photography" className="hover:text-primary transition-colors">Photography</Link>
-          <Link href="mailto:contact@ashish.me" className="hover:text-primary transition-colors">Contact</Link>
+          <Link href={siteConfig.socials.email} className="hover:text-primary transition-colors">Contact</Link>
         </nav>
 
         <div className="flex space-x-6 text-white/30">

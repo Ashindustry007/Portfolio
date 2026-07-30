@@ -18,7 +18,7 @@ export default function CoursesPage() {
       <motion.div 
         className="fixed inset-0 z-0 bg-cover bg-center"
         style={{ 
-          backgroundImage: `url('https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_f82dab339ee581d98b64e81ba16dadbdeg-ezgif.com-png-to-webp-converter.webp')`,
+          backgroundImage: `url('/images/Whisk_f82dab339ee581d98b64e81ba16dadbdeg-ezgif.com-png-to-webp-converter.webp')`,
           opacity: bgOpacity 
         }}
       />

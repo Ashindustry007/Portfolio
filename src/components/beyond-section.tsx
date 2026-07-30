@@ -10,21 +10,21 @@ export function BeyondSection() {
     {
       title: "Academic Foundation",
       link: "/courses",
-      imageUrl: "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_a3792c5199b1eb7ba9f4435d6860072beg-ezgif.com-png-to-webp-converter.webp",
+      imageUrl: "/images/Whisk_a3792c5199b1eb7ba9f4435d6860072beg-ezgif.com-png-to-webp-converter.webp",
       imageHint: "campus library",
       desc: "Coursework and fundamental research papers."
     },
     {
       title: "Beyond the Classroom",
       link: "/extracurriculars",
-      imageUrl: "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_050fef88eeb28d78dd1491ef96f1ce80dr-ezgif.com-png-to-webp-converter.webp",
+      imageUrl: "/images/Whisk_050fef88eeb28d78dd1491ef96f1ce80dr-ezgif.com-png-to-webp-converter.webp",
       imageHint: "adventure extra",
       desc: "Awards, technical clubs, and community impact."
     },
     {
       title: "Through the Lens",
       link: "/photography",
-      imageUrl: "https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_2fef7c40d3875ff89344a9b2ecb13813eg-ezgif.com-png-to-webp-converter.webp",
+      imageUrl: "/images/Whisk_2fef7c40d3875ff89344a9b2ecb13813eg-ezgif.com-png-to-webp-converter.webp",
       imageHint: "cinema photo",
       desc: "Capturing the world through cinematic photography."
     }

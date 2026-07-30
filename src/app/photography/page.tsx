@@ -26,11 +26,20 @@ export default function PhotographyPage() {
   const bgOpacity = useTransform(scrollY, [0, 400], [0.8, 0.1]);
 
   useEffect(() => {
-    // In static mode, we use the local data from config.ts
-    // This ensures zero-cost hosting on GitHub Pages
-    const staticPosts: InstagramPost[] = photographyData.map((item) => ({
+    const localImages = [
+      "/images/Whisk_2fef7c40d3875ff89344a9b2ecb13813eg-ezgif.com-png-to-webp-converter.webp",
+      "/images/Whisk_e7af2640e43f76a888a45dcf29261296eg-ezgif.com-png-to-webp-converter.webp",
+      "/images/Whisk_f82dab339ee581d98b64e81ba16dadbdeg-ezgif.com-png-to-webp-converter.webp",
+      "/images/Whisk_e2dcaa7c302f8248dbc4a95e628ab799eg-ezgif.com-png-to-webp-converter.webp",
+      "/images/Whisk_10337cfa6353d339fb244045bb2d450ddr-ezgif.com-png-to-webp-converter.webp",
+      "/images/Whisk_050fef88eeb28d78dd1491ef96f1ce80dr-ezgif.com-png-to-webp-converter.webp",
+      "/images/Whisk_a3792c5199b1eb7ba9f4435d6860072beg-ezgif.com-png-to-webp-converter.webp",
+      "/images/15d1e769-a062-4f93-9554-bf19ab63428e-ezgif.com-png-to-webp-converter.webp"
+    ];
+
+    const staticPosts: InstagramPost[] = photographyData.map((item, idx) => ({
       id: item.id,
-      media_url: `https://picsum.photos/seed/${item.imageSeed}/800/1000`,
+      media_url: localImages[idx % localImages.length],
       permalink: siteConfig.socials.instagram,
       caption: `${item.title} - ${item.location}`,
       timestamp: new Date().toISOString(),
@@ -46,7 +55,7 @@ export default function PhotographyPage() {
       <motion.div 
         className="fixed inset-0 z-0 bg-cover bg-center"
         style={{ 
-          backgroundImage: `url('https://uobfpmgknyqxdsdvqcfe.supabase.co/storage/v1/object/public/Portfolio/Whisk_e7af2640e43f76a888a45dcf29261296eg-ezgif.com-png-to-webp-converter.webp')`,
+          backgroundImage: `url('/images/Whisk_e7af2640e43f76a888a45dcf29261296eg-ezgif.com-png-to-webp-converter.webp')`,
           opacity: bgOpacity 
         }}
       />
