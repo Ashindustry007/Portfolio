@@ -1,0 +1,51 @@
+name: Refresh Instagram token
+
+on:
+  schedule:
+    - cron: "0 9 1 * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Renew token and store it in Redis
+        env:
+          KV_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+          KV_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+          SEED_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          current=$(curl -fsS "$KV_URL/get/instagram_access_token" -H "Authorization: Bearer $KV_TOKEN" | jq -r '.result // empty')
+          current=${current:-$SEED_TOKEN}
+          if [ -z "$current" ]; then
+            echo "::error::No token in Redis and the INSTAGRAM_ACCESS_TOKEN secret is empty."
+            exit 1
+          fi
+          echo "::add-mask::$current"
+
+          response=$(curl -sS -G "https://graph.instagram.com/refresh_access_token" \
+            --data-urlencode "grant_type=ig_refresh_token" \
+            --data-urlencode "access_token=$current")
+          new_token=$(echo "$response" | jq -r '.access_token // empty')
+          if [ -z "$new_token" ]; then
+            echo "::error::Instagram refused to renew the token: $(echo "$response" | jq -c '.error // .')"
+            exit 1
+          fi
+          echo "::add-mask::$new_token"
+
+          jq -n --arg t "$new_token" '["SET", "instagram_access_token", $t]' \
+            | curl -fsS -X POST "$KV_URL" -H "Authorization: Bearer $KV_TOKEN" -H "Content-Type: application/json" -d @- > /dev/null
+
+          expires_in=$(echo "$response" | jq -r '.expires_in')
+          echo "Token renewed; valid for $((expires_in / 86400)) more days."
+
+      # GitHub disables scheduled workflows after 60 days with no repo activity; re-enabling resets that timer.
+      - name: Keep this schedule alive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/refresh-instagram-token.yml/enable"

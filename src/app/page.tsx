@@ -13,14 +13,42 @@ import { Footer } from "@/components/footer";
 import { siteConfig } from "@/lib/config";
 import { AnimatePresence, motion } from "framer-motion";
 
+// Module scope survives client-side navigation, so returning to "/" skips the loader.
+const frameCache: HTMLImageElement[] = [];
+let framesReady = false;
+const SCROLL_KEY = "home-scroll-y";
+
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !framesReady);
   const [loadProgress, setLoadProgress] = useState(0);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const imagesRef = useRef<HTMLImageElement[]>(frameCache);
   const criticalLoadedRef = useRef(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (loading) return;
+    try {
+      const saved = sessionStorage.getItem(SCROLL_KEY);
+      if (saved) requestAnimationFrame(() => window.scrollTo(0, Number(saved)));
+    } catch {}
+
+    let frame = 0;
+    const save = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        try {
+          sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+        } catch {}
+      });
+    };
+    window.addEventListener("scroll", save, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", save);
+      cancelAnimationFrame(frame);
+    };
+  }, [loading]);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || framesReady) return;
 
     const totalFrames = siteConfig.framesCount;
     const KEYFRAME_STEP = 8; // Load every 8th frame for the "Fast Spin" entry
@@ -68,6 +96,7 @@ export default function Home() {
       
       // 3. Unlock the site immediately after keyframes are ready
       criticalLoadedRef.current = true;
+      framesReady = true;
       setTimeout(() => setLoading(false), 300);
 
       // 4. Silently fill in the "Gap Frames" (1-7, 9-15, etc.) in background

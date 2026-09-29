@@ -54,7 +54,7 @@ export function AboutSection() {
               I am an AI Engineer currently pursuing my MSCS at UC San Diego, driven by the challenge of bridging the gap between theoretical research and scalable, real-world systems. My focus lies at the intersection of Computer Vision and Agentic AI.
             </p>
             <p>
-              With a foundation from OUTR (B.Tech), I have spent my academic and professional career developing intelligent pipelines that solve complex problems—from healthcare audio bio-markers to cancer risk assessment via spatial transcriptomics.
+              With a foundation from OUTR (B.Tech), I have spent my academic and professional career developing intelligent pipelines that solve complex problems—from healthcare audio bio-markers and cancer risk assessment via spatial transcriptomics to agentic automation of pre-silicon chip design.
             </p>
           </div>
 

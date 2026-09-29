@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { siteConfig, photographyData } from "@/lib/config";
+import { siteConfig } from "@/lib/config";
 import { Footer } from "@/components/footer";
 import { ArrowLeft, Instagram, ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -21,42 +21,27 @@ interface InstagramPost {
 export default function PhotographyPage() {
   const [posts, setPosts] = useState<InstagramPost[]>([]);
   const [loading, setLoading] = useState(true);
-  
+  const [failed, setFailed] = useState(false);
+
   const { scrollY } = useScroll();
   const bgOpacity = useTransform(scrollY, [0, 400], [0.8, 0.1]);
 
   useEffect(() => {
-    const localImages = [
-      "/images/Whisk_2fef7c40d3875ff89344a9b2ecb13813eg-ezgif.com-png-to-webp-converter.webp",
-      "/images/Whisk_e7af2640e43f76a888a45dcf29261296eg-ezgif.com-png-to-webp-converter.webp",
-      "/images/Whisk_f82dab339ee581d98b64e81ba16dadbdeg-ezgif.com-png-to-webp-converter.webp",
-      "/images/Whisk_e2dcaa7c302f8248dbc4a95e628ab799eg-ezgif.com-png-to-webp-converter.webp",
-      "/images/Whisk_10337cfa6353d339fb244045bb2d450ddr-ezgif.com-png-to-webp-converter.webp",
-      "/images/Whisk_050fef88eeb28d78dd1491ef96f1ce80dr-ezgif.com-png-to-webp-converter.webp",
-      "/images/Whisk_a3792c5199b1eb7ba9f4435d6860072beg-ezgif.com-png-to-webp-converter.webp",
-      "/images/15d1e769-a062-4f93-9554-bf19ab63428e-ezgif.com-png-to-webp-converter.webp"
-    ];
-
-    const staticPosts: InstagramPost[] = photographyData.map((item, idx) => ({
-      id: item.id,
-      media_url: localImages[idx % localImages.length],
-      permalink: siteConfig.socials.instagram,
-      caption: `${item.title} - ${item.location}`,
-      timestamp: new Date().toISOString(),
-    }));
-    
-    setPosts(staticPosts);
-    setLoading(false);
+    fetch("/api/instagram")
+      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+      .then((data: { posts: InstagramPost[] }) => setPosts(data.posts))
+      .catch(() => setFailed(true))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <main className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
       {/* Background Layers */}
-      <motion.div 
+      <motion.div
         className="fixed inset-0 z-0 bg-cover bg-center"
-        style={{ 
+        style={{
           backgroundImage: `url('/images/Whisk_e7af2640e43f76a888a45dcf29261296eg-ezgif.com-png-to-webp-converter.webp')`,
-          opacity: bgOpacity 
+          opacity: bgOpacity
         }}
       />
       <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent via-background/40 to-background pointer-events-none" />
@@ -107,9 +92,25 @@ export default function PhotographyPage() {
           <div className="max-w-7xl mx-auto">
             <div className="mb-12 p-3 rounded-xl bg-primary/5 border border-primary/10 text-center">
               <p className="text-[9px] font-mono uppercase tracking-[0.3em] text-primary/60">
-                Viewing curated showcase
+                Live from @ash.galleryyy
               </p>
             </div>
+
+            {!loading && (failed || posts.length === 0) && (
+              <div className="py-24 text-center space-y-6">
+                <p className="text-sm text-muted-foreground font-mono uppercase tracking-wider">
+                  {failed ? "The gallery couldn't be loaded right now." : "No photos posted yet."}
+                </p>
+                <Link
+                  href={siteConfig.socials.instagram}
+                  target="_blank"
+                  className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest hover:bg-primary hover:text-black transition-all duration-500"
+                >
+                  <Instagram size={16} />
+                  View on Instagram
+                </Link>
+              </div>
+            )}
 
             <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
               <AnimatePresence mode="popLayout">
@@ -142,9 +143,10 @@ export default function PhotographyPage() {
                           >
                             <Image
                               src={post.media_url}
-                              alt={post.caption}
+                              alt={post.caption || "Photo by @ash.galleryyy"}
                               width={800}
                               height={1000}
+                              unoptimized
                               className="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-700"
                             />
                             

@@ -25,6 +25,11 @@ export const siteConfig = {
 
 export const experience = [
   {
+    title: "AI Engineer Intern",
+    company: "Qualcomm",
+    description: "Built a WebSocket bridge that lets a Linux LLM CLI control pre-silicon chip-design tools on Windows through a Chrome Extension. Engineered a secure, Dockerized FastAPI backend with LangGraph conversation memory and a RAG pipeline, streaming 4 LLMs (Claude, Codex, OpenCode, internal) through one SSE channel with native tool calling. Shipped a second conversational extension with loop-capped tool dispatch, page-level guardrails and live network interception, protected by human-in-the-loop approvals, per-site permissions and audit logs."
+  },
+  {
     title: "AI Research Intern",
     company: "Boolean Lab - UCSD Health",
     description: "Engineered self-supervised PyTorch pipelines for colon tissue analysis using Spatial Transcriptomics. Fine-tuned DINOv3-7B Transformers using LoRA, reducing memory by 75% while achieving 81% mIoU in tissue segmentation."
@@ -46,16 +51,51 @@ export const experience = [
   }
 ];
 
-export const projects = [
+type Project = {
+  title: string;
+  description: string;
+  imageKey: string;
+  link?: string;
+  award?: string;
+};
+
+export const projects: Project[] = [
   {
-    title: "Retinal Vessel Segmentation",
-    description: "Developed a Residual U-Net model for early detection of diabetic retinopathy, achieving an AUC of 0.9667 using Python, Keras, and OpenCV.",
-    imageKey: "project-retinal"
+    title: "Allerion",
+    description: "AI-powered, species-specific pollen forecasting that fuses iNaturalist citizen-science data, the Google Pollen API and a phenology engine into 14-day, neighborhood-level forecasts, with Gemini 2.5 Flash agents for advisories and photo-based plant ID.",
+    imageKey: "project-allerion",
+    link: "https://github.com/Ashindustry007/DataHacks26-Allerion",
+    award: "GDG Challenge Winner · DataHacks 2026"
+  },
+  {
+    title: "LRTSG: Language Reasoning with Scene Graphs",
+    description: "Zero-shot agentic VLM pipeline where six agents plan, narrate, build, localize, audit and answer over a verified Scene Graph, cutting reasoning errors from 85% to 10% across 20 complex VQA scenes.",
+    imageKey: "project-lrtsg",
+    link: "https://github.com/Ashindustry007/LRTSG---Language-Reasoning-Task-with-Scene-Graph"
+  },
+  {
+    title: "SAFE: Smart Analytics for Fire Emergencies",
+    description: "Wildfire intelligence platform simulating fire spread with the Rothermel model on 3D terrain, plus an LLM assistant with multi-provider failover (Groq, Gemini, OpenAI, Mistral). Built with React Three Fiber, Node.js and LangChain.",
+    imageKey: "project-safe",
+    link: "https://github.com/Ashindustry007/SAFE"
   },
   {
     title: "Non-Invasive Vocal Bio-Marker",
     description: "Created a hybrid CRNN-Attention model for non-invasive COVID-19 screening with 97% accuracy using spectral feature extraction and Bidirectional LSTMs.",
-    imageKey: "project-vocal"
+    imageKey: "project-vocal",
+    link: "https://github.com/Ashindustry007/Vocal-Biomarker-ICBHI-final-database"
+  },
+  {
+    title: "Retinal Vessel Segmentation",
+    description: "Developed a Residual U-Net model for early detection of diabetic retinopathy, achieving an AUC of 0.9667 using Python, Keras, and OpenCV.",
+    imageKey: "project-retinal",
+    link: "https://github.com/Ashindustry007/Retina_Image_Segmentation"
+  },
+  {
+    title: "MusicNet",
+    description: "Beethoven-style classical music generation using an LSTM sequence model with embeddings, trained on 157 MIDI pieces across 130 note classes and rendered back to audio with music21.",
+    imageKey: "project-musicnet",
+    link: "https://github.com/Ashindustry007/MusicNet"
   },
   {
     title: "Population Growth Prediction",
@@ -202,6 +242,7 @@ export const extracurriculars = [
   {
     category: "Tech & Competitive Programming",
     items: [
+      { title: "DataHacks 2026 - GDG Challenge Winner", description: "Won the GDG Challenge at DataHacks 2026, competing against 100+ teams (450+ participants) evaluated by 80+ judges and mentors, with Allerion, an AI-powered, species-specific pollen forecasting system." },
       { title: "TCS Codevita Season 10", description: "Achieved World Rank 96th globally." },
       { title: "AWS Generative AI Hackathon", description: "Ranked among the Top 5, conducted by AWS at Open Financial Technologies." },
       { title: "Kaggle Expert", description: "Ranked as Expert in the Notebook category." },
@@ -226,16 +267,4 @@ export const extracurriculars = [
       { title: "Inara NGO Volunteer", description: "Contributed to the clean beach movement and animal welfare initiatives." }
     ]
   }
-];
-
-export const photographyData = [
-  { id: "p1", title: "Cinematic Urbanity", location: "San Diego", imageSeed: "ash-city-1" },
-  { id: "p2", title: "The Golden Hour", location: "La Jolla", imageSeed: "ash-sunset-2" },
-  { id: "p3", title: "Monochrome Study", location: "Downtown", imageSeed: "ash-portrait-3" },
-  { id: "p4", title: "Architectural Lines", location: "Geisel Library", imageSeed: "ash-building-4" },
-  { id: "p5", title: "Ethereal Landscapes", location: "Coastline", imageSeed: "ash-coast-5" },
-  { id: "p6", title: "Neon Nights", location: "Urban Core", imageSeed: "ash-night-6" },
-  { id: "p7", title: "Symmetry in Motion", location: "Public Space", imageSeed: "ash-motion-7" },
-  { id: "p8", title: "Candid Stories", location: "Local Market", imageSeed: "ash-candid-8" },
-  { id: "p9", title: "The Blue Hour", location: "Harbor", imageSeed: "ash-blue-9" }
 ];

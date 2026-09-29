@@ -25,6 +25,30 @@
       "imageHint": "dna science"
     },
     {
+      "id": "project-allerion",
+      "description": "Allerion pollen forecasting app",
+      "imageUrl": "/images/projects/allerion.jpg",
+      "imageHint": "pollen forecast"
+    },
+    {
+      "id": "project-lrtsg",
+      "description": "LRTSG cover",
+      "imageUrl": "/images/projects/lrtsg.jpg",
+      "imageHint": "scene graph"
+    },
+    {
+      "id": "project-safe",
+      "description": "SAFE wildfire intelligence platform",
+      "imageUrl": "/images/projects/safe.jpg",
+      "imageHint": "wildfire map"
+    },
+    {
+      "id": "project-musicnet",
+      "description": "MusicNet cover",
+      "imageUrl": "/images/projects/musicnet.jpg",
+      "imageHint": "music notes"
+    },
+    {
       "id": "photography-thumbnail",
       "description": "Photography portfolio preview",
       "imageUrl": "/images/Whisk_2fef7c40d3875ff89344a9b2ecb13813eg-ezgif.com-png-to-webp-converter.webp",
