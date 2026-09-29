@@ -27,7 +27,7 @@ export const experience = [
   {
     title: "AI Engineer Intern",
     company: "Qualcomm",
-    description: "Built a WebSocket bridge that lets a Linux LLM CLI control pre-silicon chip-design tools on Windows through a Chrome Extension. Engineered a secure, Dockerized FastAPI backend with LangGraph conversation memory and a RAG pipeline, streaming 4 LLMs (Claude, Codex, OpenCode, internal) through one SSE channel with native tool calling. Shipped a second conversational extension with loop-capped tool dispatch, page-level guardrails and live network interception, protected by human-in-the-loop approvals, per-site permissions and audit logs."
+    description: "Built a WebSocket bridge letting LLMs control pre-silicon chip-design tools via Chrome Extensions. Engineered a Dockerized FastAPI + LangGraph backend with RAG, streaming 4 LLMs over SSE, secured by human-in-the-loop guardrails."
   },
   {
     title: "AI Research Intern",
