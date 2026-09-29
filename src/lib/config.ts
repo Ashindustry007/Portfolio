@@ -27,27 +27,58 @@ export const experience = [
   {
     title: "AI Engineer Intern",
     company: "Qualcomm",
-    description: "Built a WebSocket bridge letting LLMs control pre-silicon chip-design tools via Chrome Extensions. Engineered a Dockerized FastAPI + LangGraph backend with RAG, streaming 4 LLMs over SSE, secured by human-in-the-loop guardrails."
+    description: "Designed, implemented and evaluated AI-assisted browser automation infrastructure for pre-silicon chip-design engineering tools, letting engineers drive internal web portals in natural language. Built and compared two approaches, a Linux-to-Windows LLM bridge and a stateful agentic chat extension, and recommended the latter for immediate adoption.",
+    highlights: [
+      "Architected a persistent Starlette/uvicorn WebSocket bridge connecting an internal Linux LLM CLI to a Windows Manifest V3 Chrome Extension, exposing automation scripts as LLM-invocable actions; published it as a versioned internal LLM skill that auto-initiates and reuses the connection.",
+      "Authored 53 JavaScript browser-automation playbooks across two internal applications, each with a self-contained execute(params) interface, MutationObserver-based async DOM waiting, structured JSON results, and script injection across nested iframes and shadow DOM.",
+      "Engineered a secure, Dockerized FastAPI + internal Python SDK backend behind an nginx reverse proxy, with CORS and authorized-origin restrictions, OAuth 2.0 against an enterprise API gateway, an in-process LangGraph checkpointer for conversation state, and a cosine-similarity RAG store (1000-char/200-overlap chunking) to prevent context overflow.",
+      "Unified four AI backends (internal SDK with LangGraph, Claude Agent SDK, OpenAI Codex SDK and OpenCode SDK) into a single SSE stream with native tool calling for the client extension.",
+      "Built a dual-format tool-calling dispatch supporting native JSON-schema tool use (Claude, GPT, Gemini and an internal coder model) and a text-directive fallback for an on-prem model without tool support, sharing one guardrail path capped at 10 iterations per turn to prevent infinite loops.",
+      "Built a multi-layered page-reading engine that traverses up to 8 cross-origin iframes with shadow-DOM piercing and extracts native tables, ARIA grids, ag-Grid, MUI DataGrid and virtualized Webix grids, plus debugger-based network-response interception to capture complete API data beyond DOM limits.",
+      "Deployed a human-in-the-loop security architecture: URL-mapped guardrails allowlisting instructions and scripts per page, mandatory user-approval cards, per-site permission opt-in, and a capped audit log to prevent unauthorized model actions on sensitive enterprise portals.",
+      "Evaluated both approaches on usability, integration depth, development complexity, security posture and extensibility, and proposed deeper desktop-app integration and an MCP-based multi-tool architecture as next steps."
+    ]
   },
   {
     title: "AI Research Intern",
     company: "Boolean Lab - UCSD Health",
-    description: "Engineered self-supervised PyTorch pipelines for colon tissue analysis using Spatial Transcriptomics. Fine-tuned DINOv3-7B Transformers using LoRA, reducing memory by 75% while achieving 81% mIoU in tissue segmentation."
+    description: "Built self-supervised computer vision pipelines for colon tissue analysis, correlating tissue morphology with gene expression from spatial transcriptomics for cancer risk assessment. Fine-tuned DINOv3-7B Vision Transformers with LoRA, cutting memory by 75% and reaching 81% mIoU in crypt-level segmentation.",
+    highlights: [
+      "Engineered a self-supervised PyTorch pipeline for colon tissue analysis, fine-tuning DINOv3-7B Vision Transformers via LoRA to reduce memory by 75% while correlating morphology with gene expression for cancer risk assessment.",
+      "Integrated a Mask2Former segmentation head with the trained LoRA adapters, achieving 81% mIoU and reducing manual annotation time by 90% for automated crypt-level tissue segmentation."
+    ]
   },
   {
     title: "Software Engineer",
     company: "Open Financial Technologies",
-    description: "Deployed Multi-modal AI models boosting extraction accuracy by 18% for automated invoice conversion (92% success). Engineered secure fintech solutions protecting 50K+ users with RBI-compliant risk controls."
+    description: "Two years as a Software Engineer, after an internship, building AI and fintech products on a neobanking platform. Deployed multi-modal AI that auto-converts 92% of invoices, shipped payroll and payment solutions for major Indian banks, and built RBI-compliant risk controls protecting 50K+ users.",
+    highlights: [
+      "Benchmarked and deployed multi-modal AI models, including a deep-learning OCR for paper invoices (Python, PyTorch, OpenCV), boosting extraction accuracy by 18%, auto-converting 92% of invoices into e-invoices and cutting manual processing by 75%.",
+      "Built Payment Pages and automated RBI-compliant risk controls with PHP, Laravel and SQL, reducing manual audits by 82% and fraud by 67% while scaling merchant onboarding.",
+      "Payroll: optimized APIs for 9x faster responses, redesigned the UI/UX (positive feedback from 95%+ of users), and delivered payroll solutions for HDFC and Axis Bank plus full white-labeling for IIFL.",
+      "Payment gateway: led the UPI integration for Yes Bank, driving a 189% increase in user engagement.",
+      "Implemented RBAC, access management and custom encryption to protect 50K+ users, and built automated risk-analysis and fraud-detection models that augmented existing anomaly detection.",
+      "Helped migrate OPEN Payroll's HCM vendor with zero downtime, no customer loss and 100% data integrity."
+    ]
   },
   {
     title: "Deep Learning Research Intern",
     company: "Pucho Digital Healthcare",
-    description: "Accelerated mRNA vaccine screening via deep learning pipelines. Implemented Explainable AI (XAI) for cell anomaly detection in MRI scans, achieving 96.55% sensitivity for clinical decision support."
+    description: "Applied deep learning to healthcare research, from in-silico mRNA vaccine design to explainable computer vision for disease detection. Improved disease-cell detection in medical scans to 96.55% sensitivity, using Explainable AI (XAI) to justify model predictions for clinical decision support.",
+    highlights: [
+      "Researched deep-learning-based in-silico mRNA vaccine design, comparing it with traditional methods and improving the selection of stable epitopes by antigenicity, toxicity, allergenicity and cytokine-inducibility scores.",
+      "Applied Explainable AI to computer vision to understand and justify model predictions, improving disease-cell detection in MRI scans to 96.55% sensitivity for reliable, AI-driven clinical decision support."
+    ]
   },
   {
     title: "Data Science Intern",
     company: "Analytics Labs",
-    description: "Designed hybrid deep learning models for COVID-19 spread prediction with 89% forecast accuracy. Mitigated financial fraud using Genetic Algorithms and Scikit-Learn (98.5% recall)."
+    description: "Built predictive and anomaly-detection models across epidemiology, finance and predictive maintenance. Forecast COVID-19 spread with 89% accuracy using a hybrid statistical and deep learning model, and detected credit-card fraud with 98.5% recall on a highly imbalanced dataset.",
+    highlights: [
+      "Predicted COVID-19 spread with a hybrid statistical and deep learning model combined with social network analysis of the Twitter social graph, reaching 89% forecast accuracy.",
+      "Detected credit-card fraud on a highly imbalanced dataset using over-, under- and no-sampling, Genetic Algorithm feature selection and a comparison of seven anomaly-detection models, reaching 98.5% recall with 80%+ precision.",
+      "Ran a comparative study of simple Artificial Neural Networks, Neural Architecture Search and Extreme Learning Machines on the CMAPSS dataset."
+    ]
   }
 ];
 
@@ -140,7 +171,7 @@ export const academicData = {
       },
       {
         id: "Spring 2026",
-        gpa: "TBD",
+        gpa: "4.000",
         courses: [
           "CSE 252D: Advanced Computer Vision",
           "DSC 270 - Interpretable & Explainable ML",
@@ -198,6 +229,11 @@ export const academicData = {
     ]
   },
   additionalCourses: [
+    {
+      title: "AI Upskilling Certificate: Hands-On Development from Model to App",
+      provider: "Qualcomm Academy",
+      date: "Jun 2026"
+    },
     {
       title: "Deep Learning Specialization",
       provider: "Coursera - Deeplearning.ai",
