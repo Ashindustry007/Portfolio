@@ -31,3 +31,6 @@
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# graphify knowledge graph (local tooling)
+graphify-out/
