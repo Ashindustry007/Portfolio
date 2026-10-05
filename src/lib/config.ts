@@ -92,6 +92,12 @@ type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Case Pulse",
+    description: "Cited case digestion for personal-injury firms, built at the SWANS 2026 Law-Di-Gras hackathon. Reads Clio read-only and ties every fact to its exact source span using Claude Opus and Haiku with hybrid retrieval, with 147/147 citations verified at $1.10 per case.",
+    imageKey: "project-casepulse",
+    link: "https://github.com/Ashindustry007/Case-Pulse"
+  },
+  {
     title: "Allerion",
     description: "AI-powered, species-specific pollen forecasting that fuses iNaturalist citizen-science data, the Google Pollen API and a phenology engine into 14-day, neighborhood-level forecasts, with Gemini 2.5 Flash agents for advisories and photo-based plant ID.",
     imageKey: "project-allerion",

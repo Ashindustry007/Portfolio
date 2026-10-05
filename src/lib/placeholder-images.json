@@ -25,6 +25,12 @@
       "imageHint": "dna science"
     },
     {
+      "id": "project-casepulse",
+      "description": "Case Pulse cover",
+      "imageUrl": "/images/projects/casepulse.jpg",
+      "imageHint": "legal case"
+    },
+    {
       "id": "project-allerion",
       "description": "Allerion pollen forecasting app",
       "imageUrl": "/images/projects/allerion.jpg",
