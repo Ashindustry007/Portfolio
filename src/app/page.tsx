@@ -1,34 +1,25 @@
-
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { LoadingScreen } from "@/components/loading-screen";
-import { ParallaxHero } from "@/components/parallax-hero";
+import { useEffect } from "react";
+import { HeroSection } from "@/components/hero/hero-section";
 import { AboutSection } from "@/components/about-section";
 import { ExperienceSection } from "@/components/experience-section";
 import { ProjectsSection } from "@/components/projects-section";
-import { BeyondSection } from "@/components/beyond-section";
+import { PathsSection } from "@/components/paths-section";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
-import { siteConfig } from "@/lib/config";
-import { AnimatePresence, motion } from "framer-motion";
+import { LevelSection } from "@/components/game/level-section";
+import { scrollToTarget } from "@/lib/scroll";
+import { TopoField } from "@/components/game/topo-field";
 
-// Module scope survives client-side navigation, so returning to "/" skips the loader.
-const frameCache: HTMLImageElement[] = [];
-let framesReady = false;
 const SCROLL_KEY = "home-scroll-y";
 
 export default function Home() {
-  const [loading, setLoading] = useState(() => !framesReady);
-  const [loadProgress, setLoadProgress] = useState(0);
-  const imagesRef = useRef<HTMLImageElement[]>(frameCache);
-  const criticalLoadedRef = useRef(false);
-
+  // Coming back from a sub-page returns the visitor to where they left the route.
   useEffect(() => {
-    if (loading) return;
     try {
       const saved = sessionStorage.getItem(SCROLL_KEY);
-      if (saved) requestAnimationFrame(() => window.scrollTo(0, Number(saved)));
+      if (saved) requestAnimationFrame(() => scrollToTarget(Number(saved), { immediate: true }));
     } catch {}
 
     let frame = 0;
@@ -45,118 +36,35 @@ export default function Home() {
       window.removeEventListener("scroll", save);
       cancelAnimationFrame(frame);
     };
-  }, [loading]);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || framesReady) return;
-
-    const totalFrames = siteConfig.framesCount;
-    const KEYFRAME_STEP = 8; // Load every 8th frame for the "Fast Spin" entry
-    
-    const loadImage = (index: number) => {
-      return new Promise<void>((resolve) => {
-        if (imagesRef.current[index]) {
-          resolve();
-          return;
-        }
-
-        const img = new Image();
-        const idx = index.toString().padStart(3, "0");
-        img.src = `${siteConfig.framesBaseUrl}${idx}${siteConfig.framesSuffix}`;
-        img.onload = () => {
-          imagesRef.current[index] = img;
-          resolve();
-        };
-        img.onerror = () => {
-          resolve();
-        };
-      });
-    };
-
-    const startLoading = async () => {
-      // 1. Identify Keyframes (0, 8, 16, 24... 192)
-      const keyframes: number[] = [];
-      for (let i = 0; i < totalFrames; i += KEYFRAME_STEP) {
-        keyframes.push(i);
-      }
-      if (keyframes[keyframes.length - 1] !== totalFrames - 1) {
-        keyframes.push(totalFrames - 1);
-      }
-
-      // 2. Load Keyframes in parallel for instant functional entry
-      let loadedKeyframes = 0;
-      const keyframePromises = keyframes.map(async (frameIdx) => {
-        await loadImage(frameIdx);
-        loadedKeyframes++;
-        const progress = Math.min(100, Math.round((loadedKeyframes / keyframes.length) * 100));
-        setLoadProgress(progress);
-      });
-
-      await Promise.all(keyframePromises);
-      
-      // 3. Unlock the site immediately after keyframes are ready
-      criticalLoadedRef.current = true;
-      framesReady = true;
-      setTimeout(() => setLoading(false), 300);
-
-      // 4. Silently fill in the "Gap Frames" (1-7, 9-15, etc.) in background
-      // We process these in throttled batches to prevent main-thread lag
-      const gapFrames: number[] = [];
-      for (let i = 0; i < totalFrames; i++) {
-        if (!imagesRef.current[i]) {
-          gapFrames.push(i);
-        }
-      }
-
-      const batchSize = 6;
-      for (let i = 0; i < gapFrames.length; i += batchSize) {
-        const batch = gapFrames.slice(i, i + batchSize).map(loadImage);
-        
-        if ('requestIdleCallback' in window) {
-          await new Promise(resolve => {
-            (window as any).requestIdleCallback(async () => {
-              await Promise.all(batch);
-              setTimeout(resolve, 50); // Small breath for main thread
-            });
-          });
-        } else {
-          await Promise.all(batch);
-          await new Promise(resolve => setTimeout(resolve, 100));
-        }
-      }
-    };
-
-    startLoading();
   }, []);
 
   return (
     <main className="relative min-h-screen bg-background">
-      <AnimatePresence mode="wait">
-        {loading ? (
-          <LoadingScreen 
-            key="loader"
-            progress={loadProgress}
-            onComplete={() => setLoading(false)} 
-          />
-        ) : (
-          <motion.div 
-            key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <ParallaxHero sharedImages={imagesRef.current} />
-            <div id="about">
-              <AboutSection />
-            </div>
-            <ExperienceSection />
-            <ProjectsSection />
-            <BeyondSection />
-            <CTASection />
-            <Footer />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* A contour map under the whole route; it parts around the cursor. */}
+      <TopoField className="z-0" strength={0.5} />
+      <div className="relative z-10">
+      <LevelSection index={0}>
+        <HeroSection />
+      </LevelSection>
+      <LevelSection index={1}>
+        <div id="about">
+          <AboutSection />
+        </div>
+      </LevelSection>
+      <LevelSection index={2}>
+        <ExperienceSection />
+      </LevelSection>
+      <LevelSection index={3}>
+        <ProjectsSection />
+      </LevelSection>
+      <LevelSection index={4}>
+        <PathsSection />
+      </LevelSection>
+      <LevelSection index={5}>
+        <CTASection />
+        <Footer />
+      </LevelSection>
+      </div>
     </main>
   );
 }

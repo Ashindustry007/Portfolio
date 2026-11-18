@@ -63,3 +63,672 @@
 .hero-gradient {
   background: linear-gradient(180deg, transparent 0%, rgba(28, 25, 23, 0.8) 100%);
 }
+
+/* ------------------------------------------------------------------ shell */
+
+:root {
+  --ink: 40 30% 89%;
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px hsl(var(--ink) / 0.85);
+}
+
+:focus-visible {
+  outline: 1px solid hsl(var(--primary));
+  outline-offset: 3px;
+}
+
+html.gate-open,
+html.gate-open body {
+  overflow: hidden;
+}
+
+/* Custom cursor. Position is written from JS as a transform; size and state are CSS. */
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+.cursor-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.cursor-root[data-gone="true"],
+.cursor-root[data-state="hidden"] {
+  opacity: 0;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 9999px;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: hsl(var(--primary));
+  transition: width 0.25s, height 0.25s, margin 0.25s, opacity 0.2s;
+}
+.cursor-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border: 1px solid hsl(var(--ink) / 0.4);
+  opacity: 0;
+  transition: opacity 0.25s, width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    margin 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s, border-color 0.25s, scale 0.2s;
+}
+.cursor-label {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: hsl(var(--primary-foreground));
+  opacity: 0;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.cursor-root[data-state="link"] .cursor-ring,
+.cursor-root[data-state="label"] .cursor-ring {
+  opacity: 1;
+}
+.cursor-root[data-state="link"] .cursor-ring {
+  width: 58px;
+  height: 58px;
+  margin: -29px 0 0 -29px;
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.1);
+}
+.cursor-root[data-state="label"] .cursor-ring {
+  width: 84px;
+  height: 84px;
+  margin: -42px 0 0 -42px;
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary));
+}
+.cursor-root[data-state="label"] .cursor-label {
+  opacity: 1;
+}
+/* A lighter label for things worth seeing through, like the hero figure's lens. */
+.cursor-root[data-state="label"][data-variant="outline"] .cursor-ring {
+  width: 70px;
+  height: 70px;
+  margin: -35px 0 0 -35px;
+  background: transparent;
+}
+.cursor-root[data-state="label"][data-variant="outline"] .cursor-label {
+  color: hsl(var(--primary));
+  background: hsl(0 0% 0% / 0.72);
+  padding: 2px 5px;
+}
+.cursor-root[data-state="label"] .cursor-dot {
+  opacity: 0;
+}
+.cursor-root[data-pressed="true"] .cursor-ring {
+  scale: 0.82;
+}
+
+.cursor-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #e0e0da;
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.cursor-line-x {
+  width: 100vw;
+  height: 1px;
+}
+.cursor-line-y {
+  width: 1px;
+  height: 100vh;
+}
+.cursor-root[data-lines="true"] .cursor-line {
+  opacity: 0.16;
+}
+
+/* HUD */
+.hud-button {
+  display: inline-flex;
+  height: 2.25rem;
+  min-width: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0 0.6rem;
+  border: 1px solid hsl(var(--ink) / 0.12);
+  background: hsl(var(--background) / 0.6);
+  color: hsl(var(--ink) / 0.7);
+  backdrop-filter: blur(8px);
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+}
+.hud-button:hover {
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary) / 0.6);
+}
+
+.hud-letter {
+  position: relative;
+  display: inline-flex;
+  height: 2.25rem;
+  width: 1.9rem;
+  align-items: center;
+  justify-content: center;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: hsl(var(--ink) / 0.45);
+  transition: color 0.25s;
+}
+.hud-letter:hover,
+.hud-letter.is-active {
+  color: hsl(var(--primary));
+}
+.hud-letter.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 30%;
+  right: 30%;
+  height: 1px;
+  background: hsl(var(--primary));
+}
+.hud-tip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -2px);
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: hsl(var(--ink) / 0.8);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.hud-letter:hover .hud-tip,
+.hud-letter:focus-visible .hud-tip {
+  opacity: 1;
+  transform: translate(-50%, 2px);
+}
+
+.hud-eq {
+  display: inline-flex;
+  height: 12px;
+  align-items: flex-end;
+  gap: 2px;
+}
+.hud-eq i {
+  display: block;
+  width: 2px;
+  height: 3px;
+  background: currentColor;
+  transform-origin: bottom;
+}
+.hud-eq.is-on {
+  color: hsl(var(--primary));
+}
+.hud-eq.is-on i {
+  height: 12px;
+  animation: hud-eq 0.9s ease-in-out infinite alternate;
+}
+.hud-eq.is-on i:nth-child(2) { animation-delay: -0.35s; animation-duration: 0.7s; }
+.hud-eq.is-on i:nth-child(3) { animation-delay: -0.6s; animation-duration: 1.1s; }
+.hud-eq.is-on i:nth-child(4) { animation-delay: -0.15s; animation-duration: 0.8s; }
+@keyframes hud-eq {
+  from { transform: scaleY(0.25); }
+  to { transform: scaleY(1); }
+}
+
+/* Start gate */
+.gate-grid {
+  background-image: linear-gradient(hsl(var(--ink) / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--ink) / 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at center, black 10%, transparent 72%);
+}
+.gate-button {
+  display: inline-flex;
+  height: 3rem;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 1.6rem;
+  border: 1px solid hsl(var(--ink) / 0.25);
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: hsl(var(--ink) / 0.8);
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+}
+.gate-button:hover {
+  border-color: hsl(var(--primary));
+  color: hsl(var(--primary));
+}
+.gate-button.is-primary {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 500;
+}
+.gate-button.is-primary:hover {
+  background: hsl(var(--primary) / 0.85);
+  color: hsl(var(--primary-foreground));
+}
+
+/* Line art that draws itself on. Paths need pathLength="1". */
+.line-draw path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: line-draw 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.line-draw path:nth-child(2) { animation-delay: 0.5s; animation-duration: 0.6s; }
+.line-draw path:nth-child(3) { animation-delay: 0.7s; animation-duration: 0.8s; }
+.line-draw g { opacity: 0; animation: fade-in 0.4s 1s forwards; }
+@keyframes line-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fade-in {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-draw path { animation: none; stroke-dashoffset: 0; }
+  .line-draw g { animation: none; opacity: 1; }
+  .hud-eq.is-on i { animation: none; }
+}
+
+/* ------------------------------------------------------------------- hero */
+
+.blueprint-grid {
+  background-image: linear-gradient(hsl(var(--ink) / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--ink) / 0.045) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 65% at 50% 45%, black 20%, transparent 78%);
+}
+
+.turntable-ticks {
+  animation: turntable 40s linear infinite;
+}
+.turntable-ticks.is-reverse {
+  animation-duration: 28s;
+  animation-direction: reverse;
+}
+@keyframes turntable {
+  to { stroke-dashoffset: -312; }
+}
+/* The "turn me" prompt under the hero figure breathes a soft orange glow. */
+.turn-hint {
+  animation: turn-hint-glow 2.4s ease-in-out infinite;
+}
+@keyframes turn-hint-glow {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0); }
+  50% { box-shadow: 0 0 0 5px hsl(var(--primary) / 0.12), 0 0 24px hsl(var(--primary) / 0.3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .turntable-ticks { animation: none; }
+  .turn-hint { animation: none; }
+}
+
+/* The light the portrait was shot in, kept behind the cut-out figure. */
+.figure-glow {
+  background: radial-gradient(ellipse 42% 46% at 30% 46%, hsl(18 90% 45% / 0.34), transparent 70%),
+    radial-gradient(ellipse 40% 46% at 72% 44%, hsl(228 70% 45% / 0.28), transparent 70%);
+  filter: blur(24px);
+}
+
+/* ------------------------------------------------------------------ themes */
+
+:root {
+  --class: var(--primary);
+}
+html[data-class="c"] { --class: 160 84% 55%; }
+html[data-class="a"] { --class: 338 96% 64%; }
+html[data-class="t"] { --class: 176 62% 52%; }
+
+body {
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+/* ------------------------------------------------------------------- cards */
+
+.tilt-glare {
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), hsl(var(--ink) / 0.1), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.tilt-card:hover .tilt-glare {
+  opacity: 1;
+}
+
+/* ----------------------------------------------------------- sketch lens */
+
+/* The scribbled copy sits on top while the cursor is over the image, visible
+   only inside a circle at the cursor. (It is not in the page at other times.) */
+.sketch-image .sketch-layer {
+  filter: url(#pen);
+  -webkit-mask-image: radial-gradient(circle var(--lens) at var(--lx, 50%) var(--ly, 50%), #000 99%, transparent 100%);
+  mask-image: radial-gradient(circle var(--lens) at var(--lx, 50%) var(--ly, 50%), #000 99%, transparent 100%);
+}
+.sketch-image .sketch-ring {
+  position: absolute;
+  left: var(--lx, 50%);
+  top: var(--ly, 50%);
+  width: calc(var(--lens) * 2);
+  height: calc(var(--lens) * 2);
+  margin: calc(var(--lens) * -1) 0 0 calc(var(--lens) * -1);
+  border: 1.5px solid hsl(var(--primary));
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+/* Hand-drawn strokes: draw on when their container scrolls into view. */
+.sketch-stroke {
+  filter: url(#rough);
+}
+.sketch-stroke path,
+.sketch-stroke line,
+.sketch-stroke circle,
+.sketch-stroke ellipse,
+.sketch-stroke rect {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.3s cubic-bezier(0.65, 0, 0.35, 1);
+  transition-delay: var(--d, 0s);
+}
+.is-drawn .sketch-stroke path,
+.is-drawn .sketch-stroke line,
+.is-drawn .sketch-stroke circle,
+.is-drawn .sketch-stroke ellipse,
+.is-drawn .sketch-stroke rect,
+.sketch-stroke.is-drawn path,
+.sketch-stroke.is-drawn line,
+.sketch-stroke.is-drawn circle,
+.sketch-stroke.is-drawn ellipse,
+.sketch-stroke.is-drawn rect {
+  stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sketch-stroke path,
+  .sketch-stroke line,
+  .sketch-stroke circle,
+  .sketch-stroke ellipse,
+  .sketch-stroke rect {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ------------------------------------------------------------ class pages */
+
+/* Coder: a monitor's scanlines and a glow in the class colour. */
+.code-rain {
+  background: radial-gradient(ellipse 60% 50% at 80% 0%, hsl(var(--class) / 0.1), transparent 70%),
+    repeating-linear-gradient(0deg, hsl(var(--class) / 0.035) 0 1px, transparent 1px 4px);
+}
+
+/* Traveller: an inked rubber stamp that lands when it scrolls into view. */
+.stamp {
+  opacity: 0;
+  transform: scale(1.7) rotate(calc(var(--tilt, -8deg) - 14deg));
+  transition: opacity 0.18s ease-out, transform 0.32s cubic-bezier(0.2, 1.6, 0.4, 1);
+  transition-delay: var(--d, 0s);
+}
+.is-drawn .stamp {
+  opacity: 1;
+  transform: scale(1) rotate(var(--tilt, -8deg));
+}
+.stamp-holder:hover .stamp {
+  transform: scale(1.06) rotate(calc(var(--tilt, -8deg) + 5deg));
+  transition-delay: 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .stamp {
+    opacity: 1;
+    transform: rotate(var(--tilt, -8deg));
+    transition: none;
+  }
+}
+
+/* A box drawn by hand: two slightly different passes of the pen. */
+.sketch-border,
+.sketch-border::after {
+  position: absolute;
+  inset: 0;
+  border: 1px solid hsl(var(--ink) / 0.24);
+  filter: url(#rough);
+  pointer-events: none;
+  transition: border-color 0.4s;
+}
+.sketch-border::after {
+  content: "";
+  inset: 3px -2px -3px 2px;
+  border-color: hsl(var(--ink) / 0.1);
+  filter: none;
+}
+.tilt-card:hover .sketch-border,
+.group:hover > .sketch-border {
+  border-color: hsl(var(--primary) / 0.85);
+}
+
+/* ------------------------------------------------------ experience scenes */
+
+/* Qualcomm: the agent's cursor visits three targets; each lights as it lands. */
+.vg-agent {
+  animation: vg-agent 4.8s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+@keyframes vg-agent {
+  0%, 8% { transform: translate(44px, 68px); }
+  33%, 42% { transform: translate(156px, 58px); }
+  66%, 76% { transform: translate(120px, 96px); }
+  100% { transform: translate(44px, 68px); }
+}
+.vg-target {
+  animation: vg-target 4.8s linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes vg-target {
+  0%, 12% { stroke: hsl(var(--primary)); fill: hsl(var(--primary) / 0.14); }
+  20%, 100% { stroke: currentColor; fill: transparent; }
+}
+
+/* Boolean Lab: the mask shows inside a patch at the cursor, or drifts when idle. */
+.vg-reveal {
+  -webkit-mask-image: radial-gradient(circle 46px at var(--mx, 30%) var(--my, 50%), #000 60%, transparent 100%);
+  mask-image: radial-gradient(circle 46px at var(--mx, 30%) var(--my, 50%), #000 60%, transparent 100%);
+  animation: vg-drift 7s ease-in-out infinite alternate;
+}
+.vg:hover .vg-reveal {
+  animation: none;
+}
+@keyframes vg-drift {
+  from { -webkit-mask-position: -60px 0; mask-position: -60px 0; }
+  to { -webkit-mask-position: 150px 0; mask-position: 150px 0; }
+}
+
+/* Open Financial: a scan line sweeps the invoice and the fields are picked out. */
+.vg-scanline {
+  animation: vg-scan 3.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px hsl(var(--primary)));
+}
+@keyframes vg-scan {
+  0% { transform: translateY(0); opacity: 0; }
+  8%, 86% { opacity: 1; }
+  100% { transform: translateY(108px); opacity: 0; }
+}
+.vg-field {
+  animation: vg-field 3.4s linear infinite;
+  animation-delay: var(--d, 0s);
+  opacity: 0;
+}
+@keyframes vg-field {
+  0% { opacity: 0; }
+  6%, 70% { opacity: 1; }
+  82%, 100% { opacity: 0; }
+}
+
+/* Pucho: base pairs flicker along the strand; the heat spot follows the cursor. */
+.vg-base {
+  animation: vg-base 2s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes vg-base {
+  50% { stroke: hsl(var(--primary)); stroke-opacity: 1; }
+}
+.vg-heat {
+  background: radial-gradient(circle 30px at 50% 50%, hsl(8 100% 58% / 0.75), hsl(38 100% 55% / 0.45) 45%, transparent 75%);
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  animation: vg-heat 5s ease-in-out infinite alternate;
+}
+.vg:hover .vg-heat {
+  animation: none;
+  /* --mx runs across the whole scene; the scan sits in its right-hand 41%. */
+  background-size: 200% 200%;
+  background-position: calc(50% + (var(--mx, 80%) - 80%) * 1.2) calc(50% + (var(--my, 50%) - 50%) * 0.8);
+}
+@keyframes vg-heat {
+  from { background-position: -14px -10px; }
+  to { background-position: 16px 14px; }
+}
+
+/* Analytics Labs: the forecast draws itself; flagged points ping. */
+.vg-forecast {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: vg-forecast 4s ease-in-out infinite;
+}
+.vg-band {
+  animation: vg-band 4s ease-in-out infinite;
+}
+@keyframes vg-forecast {
+  0%, 10% { stroke-dashoffset: 1; }
+  55%, 88% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes vg-band {
+  0%, 40% { opacity: 0; }
+  60%, 88% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.vg-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vg-ping 1.8s ease-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes vg-ping {
+  from { transform: scale(0.3); opacity: 1; }
+  to { transform: scale(1.5); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vg-agent, .vg-target, .vg-reveal, .vg-scanline, .vg-field, .vg-base, .vg-heat, .vg-forecast, .vg-band, .vg-ping {
+    animation: none;
+  }
+  .vg-field, .vg-band { opacity: 1; }
+  .vg-forecast { stroke-dashoffset: 0; }
+  .vg-agent { transform: translate(156px, 58px); }
+  .vg-scanline { opacity: 0; }
+}
+
+/* ---------------------------------------------------------------- gallery */
+
+/* The museum: a dark wall, lit from a rail of spots along the top of each room. */
+.museum {
+  /* Mostly wall, with the page's paint just showing through. */
+  background: rgb(19 17 16 / 0.86);
+}
+.museum-room {
+  background-image: radial-gradient(ellipse 60% 100% at 50% 0%, hsl(36 60% 70% / 0.05), transparent 70%);
+}
+.museum-rail {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 30rem;
+  pointer-events: none;
+  background-image: linear-gradient(hsl(var(--ink) / 0.5), hsl(var(--ink) / 0.5)),
+    radial-gradient(ellipse 9rem 24rem at 50% 0%, hsl(40 80% 78% / 0.13), transparent 72%);
+  background-size: 100% 1px, 24rem 100%;
+  background-repeat: no-repeat, repeat-x;
+  background-position: 0 1.25rem, 50% 1.25rem;
+}
+
+/* A work: photograph, pale mat, thin dark frame, and the shadow it casts. */
+.museum-frame {
+  padding: clamp(0.9rem, 6.5%, 2.2rem);
+  background: linear-gradient(160deg, #f1ede4, #ddd7ca);
+  box-shadow: 0 0 0 0.5rem #0d0c0b, 0 0 0 calc(0.5rem + 1px) hsl(var(--ink) / 0.22), 0 2.2rem 3rem -1rem rgb(0 0 0 / 0.75), 0 0.6rem 1rem rgb(0 0 0 / 0.5);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.6s;
+}
+.museum-frame img {
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.25), 0 1px 4px rgb(0 0 0 / 0.35);
+  filter: brightness(0.9);
+  transition: filter 0.6s;
+}
+/* Stepping up to a work: it comes forward and its light comes up. */
+.museum-work:hover .museum-frame,
+.museum-frame:focus-visible {
+  transform: translateY(-0.4rem) scale(1.015);
+  box-shadow: 0 0 0 0.5rem #0d0c0b, 0 0 0 calc(0.5rem + 1px) hsl(var(--primary) / 0.7), 0 3rem 4rem -1rem rgb(0 0 0 / 0.8), 0 0 5rem hsl(40 80% 75% / 0.16);
+}
+.museum-work:hover .museum-frame img,
+.museum-frame:focus-visible img {
+  filter: brightness(1.04);
+}
+/* The label: a small card on the wall, below and to the left, as in a museum. */
+.museum-label {
+  display: block;
+  margin: 1.6rem 0 0 0.5rem;
+  max-width: 22rem;
+  padding: 0.6rem 0.85rem;
+  border-left: 1px solid hsl(var(--primary) / 0.7);
+  background: hsl(var(--ink) / 0.035);
+}
+
+/* Film: thin scrollbar, and sprocket holes along both edges of the strip. */
+.film-strip {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary) / 0.6) transparent;
+}
+.film-holes {
+  --hole: linear-gradient(90deg, transparent 0 14px, hsl(var(--ink) / 0.22) 14px 26px, transparent 26px);
+  background-image: var(--hole), var(--hole);
+  background-size: 34px 12px;
+  background-repeat: repeat-x;
+  background-position: 0 10px, 0 calc(100% - 10px);
+  background-attachment: local;
+}
+
+
+/* ---------------------------------------------------------- screen sizes */
+
+/* Nearly everything is sized in rem, so on big monitors the whole layout scales
+   up with the root size instead of sitting as a small island in the middle. */
+html {
+  font-size: clamp(16px, calc(16px + (100vw - 1536px) * 0.0062), 23px);
+}
+
+/* Tilted cards and landing stamps may poke past the edge for a moment; never
+   let that become sideways scrolling. (clip, unlike hidden, keeps sticky working.) */
+body {
+  overflow-x: clip;
+}

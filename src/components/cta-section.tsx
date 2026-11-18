@@ -6,10 +6,11 @@ import { siteConfig } from "@/lib/config";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Doodle, Marked, Note } from "@/components/game/doodles";
 
 export function CTASection() {
   return (
-    <section className="relative py-48 px-8 bg-background border-t border-white/5 overflow-hidden group">
+    <section className="relative px-6 py-[clamp(5rem,20vh,12rem)] md:px-8 bg-background border-t border-ink/5 overflow-hidden group">
       {/* Cinematic Background Layer */}
       <div className="absolute inset-0 z-0 opacity-90 transition-opacity duration-700">
         <Image
@@ -34,15 +35,20 @@ export function CTASection() {
           className="max-w-3xl space-y-12"
         >
           <div className="space-y-4">
-            <span className="text-primary font-mono text-xs uppercase tracking-[0.4em] block">Final Call</span>
-            <h2 className="text-6xl md:text-8xl font-headline font-bold leading-[0.9] uppercase tracking-tighter">
+            <span className="text-primary font-mono text-xs uppercase tracking-[0.4em] block">Level 05 / Continue?</span>
+            <h2 className="text-[length:clamp(2.6rem,min(11vw,17vh),6rem)] font-headline font-bold leading-[0.9] uppercase tracking-tighter">
               Let&apos;s Build <br />
-              <span className="text-primary">Intelligent Systems</span> <br />
+              <span className="text-primary">Intelligent <Marked>Systems</Marked></span> <br />
               Together
             </h2>
           </div>
           
-          <div className="flex flex-col sm:flex-row justify-start items-center gap-6">
+          <div className="relative flex flex-col sm:flex-row justify-start items-center gap-6">
+            <Note arrow="arrow-down" className="absolute -top-14 left-40 hidden -rotate-3 md:inline-flex" arrowClassName="h-10 w-6">
+              press start
+            </Note>
+            <Doodle name="paw" className="absolute -bottom-16 left-2 hidden h-9 w-9 rotate-12 text-ink/30 md:block" />
+            <Doodle name="paw" className="absolute -bottom-24 left-16 hidden h-9 w-9 -rotate-6 text-ink/20 md:block" delay={0.4} />
             <Button asChild size="lg" className="h-14 px-10 rounded-full font-headline uppercase tracking-widest text-sm transition-all hover:scale-105 bg-primary text-black hover:bg-primary/90 shadow-2xl shadow-primary/20">
               <Link href={siteConfig.socials.github}>View GitHub Repo</Link>
             </Button>

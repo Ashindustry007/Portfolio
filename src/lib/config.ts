@@ -8,7 +8,7 @@ export const siteConfig = {
   accentColor: "#FF8000",
   socials: {
     github: "https://github.com/Ashindustry007",
-    linkedin: "https://linkedin.com/in/ashishkumar-panda",
+    linkedin: "https://www.linkedin.com/in/ashishpanda007/",
     instagram: "https://instagram.com/ash.galleryyy",
     email: "mailto:akpanda@ucsd.edu"
   },
@@ -17,10 +17,7 @@ export const siteConfig = {
     { id: "#02", label: "Computer Vision & LLMs" },
     { id: "#03", label: "Agentic AI & Systems" },
     { id: "#04", label: "Software Engineering" }
-  ],
-  framesCount: 192,
-  framesBaseUrl: "/sequence/frame_",
-  framesSuffix: "_delay-0.042s.png"
+  ]
 };
 
 export const experience = [

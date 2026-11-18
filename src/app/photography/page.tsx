@@ -1,193 +1,127 @@
-
 "use client";
 
-import { useEffect, useState } from "react";
-import { siteConfig } from "@/lib/config";
-import { Footer } from "@/components/footer";
-import { ArrowLeft, Instagram, ExternalLink } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Skeleton } from "@/components/ui/skeleton";
+import { extracurriculars, siteConfig } from "@/lib/config";
+import { classes } from "@/lib/journey";
+import { useInstagram } from "@/hooks/use-instagram";
+import { scrollToTarget } from "@/lib/scroll";
+import { Footer } from "@/components/footer";
+import { CloakedAvatar } from "@/components/hero/cloaked-avatar";
+import { Flow } from "@/components/gallery/flow";
+import { Museum } from "@/components/gallery/museum";
+import { Lightbox } from "@/components/gallery/lightbox";
+import { CornerMarks } from "@/components/game/line-art";
+import { PaintField } from "@/components/game/page-fields";
+import { Doodle, Note } from "@/components/game/doodles";
 
-interface InstagramPost {
-  id: string;
-  media_url: string;
-  permalink: string;
-  caption: string;
-  timestamp: string;
-}
+// How many of the newest photos hang in the opening walk.
+const STREAM = 24;
+const STREAM_ON_TOUCH = 14;
 
 export default function PhotographyPage() {
-  const [posts, setPosts] = useState<InstagramPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [failed, setFailed] = useState(false);
+  const { posts, loading, failed } = useInstagram();
+  const [open, setOpen] = useState<number | null>(null);
+  const openPhoto = useCallback((i: number) => setOpen(i), []);
+  // Fewer on phones and tablets, which have less memory to spare.
+  const [streamCount] = useState(() => (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches ? STREAM_ON_TOUCH : STREAM));
 
-  const { scrollY } = useScroll();
-  const bgOpacity = useTransform(scrollY, [0, 400], [0.8, 0.1]);
-
-  useEffect(() => {
-    fetch("/api/instagram")
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
-      .then((data: { posts: InstagramPost[] }) => setPosts(data.posts))
-      .catch(() => setFailed(true))
-      .finally(() => setLoading(false));
+  // The whole collection stays shut until asked for, from the button under the walk.
+  const [showAll, setShowAll] = useState(false);
+  const [asked, setAsked] = useState(0);
+  const revealAll = useCallback(() => {
+    setShowAll(true);
+    setAsked((n) => n + 1);
   }, []);
+  useEffect(() => {
+    if (!asked) return;
+    // Wait for the rooms to be on the page before walking down to them.
+    const id = setTimeout(() => scrollToTarget("#collection", { offset: -20 }), 80);
+    return () => clearTimeout(id);
+  }, [asked]);
+
+  const arts = extracurriculars.find((c) => c.category.startsWith("Arts"));
+  const others = classes.filter((c) => c.key !== "a");
 
   return (
-    <main className="relative min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
-      {/* Background Layers */}
-      <motion.div
-        className="fixed inset-0 z-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('/images/Whisk_e7af2640e43f76a888a45dcf29261296eg-ezgif.com-png-to-webp-converter.webp')`,
-          opacity: bgOpacity
-        }}
-      />
-      <div className="fixed inset-0 z-0 bg-gradient-to-b from-transparent via-background/40 to-background pointer-events-none" />
+    <main className="relative min-h-screen bg-background text-foreground">
+      <PaintField />
+      {posts.length > 0 && <Flow posts={posts.slice(0, streamCount)} total={posts.length} onOpen={openPhoto} onShowAll={revealAll} />}
 
-      {/* Content Layer */}
-      <div className="relative z-10">
-        <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-background/80 backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
-            <Link href="/" className="group flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-colors">
-              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-              Back to Portfolio
-            </Link>
-            <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-primary">
-              @ash.galleryyy
-            </div>
+      {loading && <p className="relative flex min-h-[100svh] items-center justify-center px-6 font-headline text-3xl font-bold uppercase text-muted-foreground">Hanging the pictures…</p>}
+      {!loading && (failed || posts.length === 0) && (
+        <div className="flex min-h-[70svh] flex-col items-center justify-center px-6 text-center">
+          <p className="font-headline text-3xl font-bold uppercase">{failed ? "The gallery couldn't be loaded right now." : "No photos posted yet."}</p>
+          <Link href={siteConfig.socials.instagram} target="_blank" rel="noopener noreferrer" className="mt-6 font-mono text-xs uppercase tracking-[0.2em] underline decoration-primary underline-offset-4 hover:text-primary">
+            View on Instagram
+          </Link>
+        </div>
+      )}
+      {posts.length > 0 &&
+        (showAll ? (
+          <div id="collection" className="relative">
+            <Museum posts={posts} onOpen={openPhoto} />
           </div>
-        </header>
+        ) : (
+          <section className="museum relative flex flex-col items-center gap-6 px-6 py-24 text-center">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-primary">The collection</p>
+            <h2 className="font-headline text-4xl font-bold uppercase leading-[0.95] tracking-tight md:text-6xl">
+              That was {streamCount}.
+              <br />
+              <span className="text-outline">There are {posts.length}.</span>
+            </h2>
+            <button type="button" onClick={revealAll} className="gate-button is-primary">
+              Open the whole gallery
+            </button>
+          </section>
+        ))}
 
-        {/* Hero Section */}
-        <section className="relative py-32 px-8 border-b border-white/5 overflow-hidden">
-          <div className="relative z-10 max-w-7xl mx-auto">
-            <div className="space-y-6 max-w-2xl">
-              <span className="text-primary font-mono text-xs uppercase tracking-widest block">Visual Narratives</span>
-              <h1 className="text-5xl md:text-7xl font-headline font-bold leading-none uppercase">
-                Through <br />
-                <span className="text-outline text-transparent" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.8)' }}>
-                  The Lens
+      {/* The artist behind the camera: the Arts & Media record. */}
+      <section className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-28 md:grid-cols-[auto_minmax(0,1fr)] md:px-8 lg:gap-20">
+        <figure className="relative mx-auto w-[min(72vw,22rem)]">
+          <CornerMarks />
+          <CloakedAvatar klass="a" active className="w-full" />
+          <Note arrow="arrow" className="absolute -right-6 -top-8 rotate-6 text-class" arrowClassName="rotate-[110deg]">
+            before the camera, paint
+          </Note>
+        </figure>
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-class">The artist&apos;s record</p>
+          <h2 className="mt-2 font-headline text-4xl font-bold uppercase leading-none tracking-tight md:text-6xl">{arts?.category ?? "Arts"}</h2>
+          <ul className="mt-8 divide-y divide-ink/10 border-y border-ink/10">
+            {arts?.items.map((item) => (
+              <li key={item.title} className="grid gap-x-8 gap-y-1 py-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+                <h3 className="font-headline text-lg font-bold leading-snug">{item.title}</h3>
+                <p className="text-base leading-relaxed text-muted-foreground">{item.description}</p>
+              </li>
+            ))}
+          </ul>
+          <Link href={siteConfig.socials.instagram} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] transition-colors hover:text-primary">
+            <Doodle name="camera" className="h-6 w-8 text-class" /> Follow @ash.galleryyy
+          </Link>
+        </div>
+      </section>
+
+      <section className="relative mx-auto max-w-7xl px-6 pb-24 md:px-8">
+        <h2 className="mb-8 font-headline text-3xl font-bold uppercase leading-none tracking-tight md:text-5xl">More to discover</h2>
+        <ul className="grid gap-px border border-ink/10 bg-ink/10 sm:grid-cols-2">
+          {others.map((o) => (
+            <li key={o.key} className="bg-background/85 backdrop-blur-sm">
+              <Link href={o.href} className="group flex items-center gap-5 p-6 transition-colors hover:bg-card">
+                <span className="text-outline w-12 font-headline text-5xl font-bold leading-none transition-all group-hover:text-primary group-hover:[-webkit-text-stroke:0px]">{o.letter}</span>
+                <span className="flex-1">
+                  <span className="block font-headline text-xl font-bold uppercase">{o.role}</span>
+                  <span className="block text-base text-muted-foreground">{o.line}</span>
                 </span>
-              </h1>
-              <p className="text-sm text-muted-foreground font-mono uppercase tracking-wider max-w-lg leading-relaxed">
-                Capturing the cinematic rhythm of urban life, geometry, and the quiet moments in between.
-              </p>
-              
-              <Link 
-                href={siteConfig.socials.instagram} 
-                target="_blank"
-                className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest hover:bg-primary hover:text-black transition-all duration-500 group"
-              >
-                <Instagram size={16} className="group-hover:scale-110 transition-transform" />
-                Explore @ash.galleryyy
+                <span className="font-mono text-[0.6875rem] uppercase tracking-[0.3em] text-ink/40 group-hover:text-primary">{o.page} →</span>
               </Link>
-            </div>
-          </div>
-        </section>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-        {/* Gallery Grid */}
-        <section className="py-24 px-8 min-h-[600px]">
-          <div className="max-w-7xl mx-auto">
-            <div className="mb-12 p-3 rounded-xl bg-primary/5 border border-primary/10 text-center">
-              <p className="text-[9px] font-mono uppercase tracking-[0.3em] text-primary/60">
-                Live from @ash.galleryyy
-              </p>
-            </div>
-
-            {!loading && (failed || posts.length === 0) && (
-              <div className="py-24 text-center space-y-6">
-                <p className="text-sm text-muted-foreground font-mono uppercase tracking-wider">
-                  {failed ? "The gallery couldn't be loaded right now." : "No photos posted yet."}
-                </p>
-                <Link
-                  href={siteConfig.socials.instagram}
-                  target="_blank"
-                  className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono uppercase tracking-widest hover:bg-primary hover:text-black transition-all duration-500"
-                >
-                  <Instagram size={16} />
-                  View on Instagram
-                </Link>
-              </div>
-            )}
-
-            <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-              <AnimatePresence mode="popLayout">
-                {loading ? (
-                  Array.from({ length: 6 }).map((_, i) => (
-                    <div key={`skeleton-${i}`} className="break-inside-avoid mb-8">
-                      <Skeleton className="w-full h-80 rounded-2xl bg-white/5 animate-pulse" />
-                      <div className="mt-4 space-y-2">
-                        <Skeleton className="h-4 w-3/4 bg-white/5" />
-                        <Skeleton className="h-3 w-1/2 bg-white/5" />
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  posts.map((post) => (
-                    <motion.div 
-                      key={post.id}
-                      layout
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6 }}
-                      className="break-inside-avoid group relative"
-                    >
-                      <Link href={post.permalink} target="_blank" className="block">
-                        <div className="relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] shadow-2xl transition-all duration-500 group-hover:border-primary/50 group-hover:shadow-primary/10">
-                          <motion.div
-                            whileHover={{ scale: 1.02 }}
-                            transition={{ duration: 0.5 }}
-                            className="relative"
-                          >
-                            <Image
-                              src={post.media_url}
-                              alt={post.caption || "Photo by @ash.galleryyy"}
-                              width={800}
-                              height={1000}
-                              unoptimized
-                              className="w-full h-auto grayscale group-hover:grayscale-0 transition-all duration-700"
-                            />
-                            
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
-                              <div className="space-y-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                <div className="flex justify-between items-center">
-                                  <div className="h-10 w-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center">
-                                    <Instagram size={18} className="text-primary" />
-                                  </div>
-                                  <div className="h-8 w-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
-                                    <ExternalLink size={14} className="text-white/60" />
-                                  </div>
-                                </div>
-                                
-                                <p className="text-[11px] text-white/80 leading-relaxed line-clamp-3 font-medium">
-                                  {post.caption || "View on Instagram"}
-                                </p>
-                                
-                                <div className="pt-4 border-t border-white/10 flex justify-between items-center">
-                                  <span className="text-[8px] font-mono text-white/30 uppercase tracking-[0.2em]">
-                                    {new Date(post.timestamp).toLocaleDateString()}
-                                  </span>
-                                  <span className="text-[8px] font-mono text-primary uppercase tracking-[0.2em]">
-                                    CINEMATIC SERIES
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </motion.div>
-                        </div>
-                      </Link>
-                    </motion.div>
-                  ))
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </section>
-
-        <Footer />
-      </div>
+      <Footer />
+      <Lightbox posts={posts} index={open} onChange={setOpen} />
     </main>
   );
 }

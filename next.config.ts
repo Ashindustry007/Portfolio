@@ -2,6 +2,10 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
+  // The old Extracurriculars page was split across the three class pages.
+  async redirects() {
+    return [{ source: '/extracurriculars', destination: '/#level-paths', permanent: false }];
+  },
   /* Removed output: 'export' for dynamic Vercel features */
   images: {
     /* Re-enabled image optimization for Vercel's edge network */
