@@ -53,24 +53,6 @@
       "description": "MusicNet cover",
       "imageUrl": "/images/projects/musicnet.jpg",
       "imageHint": "music notes"
-    },
-    {
-      "id": "photography-thumbnail",
-      "description": "Photography portfolio preview",
-      "imageUrl": "/images/Whisk_2fef7c40d3875ff89344a9b2ecb13813eg-ezgif.com-png-to-webp-converter.webp",
-      "imageHint": "cinema photo"
-    },
-    {
-      "id": "extracurricular-thumbnail",
-      "description": "Beyond the classroom activities",
-      "imageUrl": "/images/Whisk_050fef88eeb28d78dd1491ef96f1ce80dr-ezgif.com-png-to-webp-converter.webp",
-      "imageHint": "adventure extra"
-    },
-    {
-      "id": "academic-thumbnail",
-      "description": "Academic foundation and courses",
-      "imageUrl": "/images/Whisk_a3792c5199b1eb7ba9f4435d6860072beg-ezgif.com-png-to-webp-converter.webp",
-      "imageHint": "campus library"
     }
   ]
 }

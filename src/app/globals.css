@@ -56,14 +56,6 @@
   @apply bg-primary/50;
 }
 
-.parallax-container {
-  clip-path: inset(0 0 0 0);
-}
-
-.hero-gradient {
-  background: linear-gradient(180deg, transparent 0%, rgba(28, 25, 23, 0.8) 100%);
-}
-
 /* ------------------------------------------------------------------ shell */
 
 :root {
@@ -704,18 +696,10 @@ body {
   background: hsl(var(--ink) / 0.035);
 }
 
-/* Film: thin scrollbar, and sprocket holes along both edges of the strip. */
+/* The viewer's film strip: a thin scrollbar. */
 .film-strip {
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--primary) / 0.6) transparent;
-}
-.film-holes {
-  --hole: linear-gradient(90deg, transparent 0 14px, hsl(var(--ink) / 0.22) 14px 26px, transparent 26px);
-  background-image: var(--hole), var(--hole);
-  background-size: 34px 12px;
-  background-repeat: repeat-x;
-  background-position: 0 10px, 0 calc(100% - 10px);
-  background-attachment: local;
 }
 
 
